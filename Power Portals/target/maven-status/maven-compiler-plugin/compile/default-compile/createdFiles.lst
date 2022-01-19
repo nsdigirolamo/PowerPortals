@@ -1,0 +1,6 @@
+io/github/nsdigirolamo/powerportals/models/PowerPortal.class
+io/github/nsdigirolamo/powerportals/utils/PortalCreationUtil.class
+io/github/nsdigirolamo/powerportals/utils/PortalStorageUtil.class
+io/github/nsdigirolamo/powerportals/eventlisteners/PortalCreationListener.class
+io/github/nsdigirolamo/powerportals/commands/LinkCommand.class
+io/github/nsdigirolamo/powerportals/PowerPortals.class
