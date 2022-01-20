@@ -1,8 +1,10 @@
 package io.github.nsdigirolamo.powerportals;
 
 import io.github.nsdigirolamo.powerportals.commands.LinkCommand;
-import io.github.nsdigirolamo.powerportals.eventlisteners.PortalCreationListener;
-import io.github.nsdigirolamo.powerportals.utils.PortalStorageUtil;
+import io.github.nsdigirolamo.powerportals.eventlisteners.PortalActivateListener;
+import io.github.nsdigirolamo.powerportals.eventlisteners.PortalWaterListener;
+import io.github.nsdigirolamo.powerportals.eventlisteners.TeleportTriggerListener;
+import io.github.nsdigirolamo.powerportals.utils.StorageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,12 +24,14 @@ public final class PowerPortals extends JavaPlugin {
         config.options().copyDefaults(true);
         saveConfig();
 
-        getServer().getPluginManager().registerEvents(new PortalCreationListener(), this);
+        getServer().getPluginManager().registerEvents(new PortalActivateListener(), this);
+        getServer().getPluginManager().registerEvents(new TeleportTriggerListener(), this);
+        getServer().getPluginManager().registerEvents(new PortalWaterListener(), this);
 
         this.getCommand("link").setExecutor(new LinkCommand());
 
         try {
-            PortalStorageUtil.loadPowerPortals();
+            StorageUtil.loadPowerPortals();
         } catch (FileNotFoundException e) {
             getLogger().warning(ChatColor.RED + "failed to load powerportals.json!");
         }
