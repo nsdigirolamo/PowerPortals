@@ -31,106 +31,64 @@ public class LinkUtil {
      */
     public static Linkage createLinkage (Player player, @Nullable PowerPortal entrance, @Nullable PowerPortal exit) {
 
-        UUID entranceID = entrance.getID();
-        UUID exitID = exit.getID();
-
-        if (StorageUtil.readPowerPortal(entranceID) != null && StorageUtil.readPowerPortal(exitID) != null) {
-
-            for (Linkage linkage: linkages) {
-                // Check to make sure we're not duplicating an entrance
-                if (linkage.getEntrance().equals(entrance)) {
-                    player.sendMessage(ChatColor.RED + "[PowerPortals] Link Failed. Portal is already an entrance!");
-                    return null;
-                }
-            }
-
-            boolean entranceBlocked = false;
-            boolean exitBlocked = false;
-
-            ArrayList<Block> entranceTriggers = attemptEntranceTriggers(entrance);
-            if (entranceTriggers == null) {
-                entranceBlocked = true;
-            }
-
-            ArrayList<Block> exitTriggers = attemptExitTriggers(exit);
-            if (exitTriggers == null) {
-                exitBlocked = true;
-            }
-
-            if (!entranceBlocked && !exitBlocked) {
-                for (Block block: entranceTriggers) {
-                    block.setType(Material.WATER, false);
-                }
-                for (Block block: exitTriggers) {
-                    block.setType(Material.WATER, false);
-                }
-            } else {
-                if (entranceBlocked && exitBlocked) {
-                    player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance and exit blocked.");
-                } else if (entranceBlocked){
-                    player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance blocked.");
-                } else if (exitBlocked) {
-                    player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Exit blocked.");
-                }
+        for (Linkage linkage: linkages) {
+            // Check to make sure we're not duplicating an entrance
+            if (linkage.getEntrance().equals(entrance)) {
+                player.sendMessage(ChatColor.RED + "[PowerPortals] Link Failed. Portal is already an entrance!");
                 return null;
             }
-
-            Linkage linkage = new Linkage(entrance, exit, entranceTriggers, exitTriggers);
-            linkages.add(linkage);
-            player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
-            return linkage;
         }
-        player.sendMessage(ChatColor.RED + "[PowerPortals] Link Failed. Missing portal!");
-        return null;
+
+        boolean entranceBlocked = false;
+        boolean exitBlocked = false;
+
+        if (blockedTriggers(entrance)) {
+            entranceBlocked = true;
+        }
+
+        if (blockedTriggers(exit)) {
+            exitBlocked = true;
+        }
+
+        if (!entranceBlocked && !exitBlocked) {
+            for (Block block: entrance.getTriggers()) {
+                block.setType(Material.WATER, false);
+            }
+            for (Block block: exit.getTriggers()) {
+                block.setType(Material.WATER, false);
+            }
+        } else {
+            if (entranceBlocked && exitBlocked) {
+                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance and exit blocked.");
+            } else if (entranceBlocked){
+                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance blocked.");
+            } else if (exitBlocked) {
+                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Exit blocked.");
+            }
+            return null;
+        }
+
+        Linkage linkage = new Linkage(entrance, exit, entrance.getTriggers(), exit.getTriggers());
+        linkages.add(linkage);
+        player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
+        return linkage;
     }
 
-    /**
-     * Attempts to create an ArrayList of Blocks for the entrance triggers of a given PowerPortal.
-     * @param entrance The PowerPortal.
-     * @return An ArrayList of Blocks. Null if any trigger blocks were not air or water.
-     */
-    private static ArrayList<Block> attemptEntranceTriggers(PowerPortal entrance) {
-        ArrayList<double[]> entranceTriggerCoords = entrance.getTriggers();
-        World entranceWorld = Bukkit.getWorld(entrance.getWorldID());
-        ArrayList<Block> entranceTriggers = new ArrayList<>();
-        for (double[] coords: entranceTriggerCoords) {
-            Block block = (new Location(entranceWorld, coords[0], coords[1], coords[2])).getBlock();
-            // Check to make sure all the trigger blocks are air
-            if (block.getType() != Material.AIR && block.getType() != Material.WATER) {
-                return null;
-            } else {
-                entranceTriggers.add(block);
+    private static boolean blockedTriggers(PowerPortal portal) {
+        Block[] triggers = portal.getTriggers();
+        for (Block block : triggers) {
+            if (block.getType() != Material.AIR || block.getType() != Material.WATER) {
+                return false;
             }
         }
-        return entranceTriggers;
-    }
-
-    /**
-     * Attempts to create an ArrayList of Blocks for the eexit triggers of a given PowerPortal.
-     * @param exit The PowerPortal.
-     * @return An ArrayList of Blocks. Null if any trigger blocks were not air or water.
-     */
-    private static ArrayList<Block> attemptExitTriggers(PowerPortal exit) {
-        ArrayList<double[]> exitTriggerCoords = exit.getTriggers();
-        World exitWorld = Bukkit.getWorld(exit.getWorldID());
-        ArrayList<Block> exitTriggers = new ArrayList<>();
-        for (double[] coords: exitTriggerCoords) {
-            Block block = (new Location(exitWorld, coords[0], coords[1], coords[2])).getBlock();
-            // Check to make sure all the trigger blocks are air
-            if (block.getType() != Material.AIR && block.getType() != Material.WATER) {
-                return null;
-            } else {
-                exitTriggers.add(block);
-            }
-        }
-        return exitTriggers;
+        return true;
     }
 
     public static void triggerLinkage (Player player, Linkage linkage, Block trigger) {
         for (Block block: linkage.getEntranceTriggers()) {
             if (block.equals(trigger)) {
                 // TODO: Do some kind of check to make sure the teleport destination is not blocked.
-                Location exitOrigin = linkage.getExit().getOrigin();
+                Location exitOrigin = linkage.getExit().getOrigin().getLocation();
                 Vector exitFacing = linkage.getExit().getFacing();
                 double x = 0.5;
                 double y = 1;

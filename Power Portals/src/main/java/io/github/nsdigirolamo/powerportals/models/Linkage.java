@@ -8,11 +8,11 @@ import java.util.UUID;
 public class Linkage {
     private final UUID id;
     private final PowerPortal entrance;
-    private final ArrayList<Block> entranceTriggers;
+    private final Block[] entranceTriggers;
     private final PowerPortal exit;
-    private final ArrayList<Block> exitTriggers;
+    private final Block[] exitTriggers;
 
-    public Linkage (PowerPortal entrance, PowerPortal exit, ArrayList<Block> entranceTriggers, ArrayList<Block> exitTriggers) {
+    public Linkage (PowerPortal entrance, PowerPortal exit, Block[] entranceTriggers, Block[] exitTriggers) {
         this.id = UUID.randomUUID();
         this.entrance = entrance;
         this.entranceTriggers = entranceTriggers;
@@ -28,11 +28,11 @@ public class Linkage {
         return entrance;
     }
 
-    public ArrayList<Block> getEntranceTriggers () {
+    public Block[] getEntranceTriggers () {
         return entranceTriggers;
     }
 
-    public ArrayList<Block> getExitTriggers () {
+    public Block[] getExitTriggers () {
         return exitTriggers;
     }
 

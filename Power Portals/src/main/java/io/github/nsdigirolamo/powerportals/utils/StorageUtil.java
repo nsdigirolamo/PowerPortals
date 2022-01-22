@@ -3,17 +3,13 @@ package io.github.nsdigirolamo.powerportals.utils;
 import com.google.gson.Gson;
 import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.models.PowerPortal;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public class StorageUtil {
 
@@ -23,40 +19,13 @@ public class StorageUtil {
         return portals;
     }
 
-    /**
-     * Creates and stores a new portal.
-     * @param player The owner of the portal.
-     * @param portalName The name of the portal.
-     * @param origin The origin of the portal.
-     * @return The newly created portal.
-     */
-    public static PowerPortal createPowerPortal (Player player, String portalName, Block origin, Block lever, ArrayList<Block> triggers) {
-
-        ArrayList<Location> triggerPoints = new ArrayList<>();
-        for (Block block: triggers) {
-            triggerPoints.add(block.getLocation());
-        }
-
-        PowerPortal powerPortal = new PowerPortal(player, portalName, origin.getLocation(), lever.getLocation(), triggerPoints);
-        portals.add(powerPortal);
-        try {
-            savePowerPortals();
-            return powerPortal;
-        } catch (IOException e) {
-            getLogger().warning(ChatColor.RED + "[PowerPortals] failed to save powerportals.json!");
-            e.printStackTrace();
-        }
-        return null;
+    public static void storePowerPortal (PowerPortal portal) {
+        portals.add(portal);
     }
 
-    /**
-     * Reads a portal.
-     * @param id The portalID of the portal.
-     * @return The portal if the id was found.
-     */
     public static PowerPortal readPowerPortal (UUID id) {
         for (PowerPortal powerPortal: portals) {
-            if (powerPortal.getID().equals(id)) {
+            if (powerPortal.getId().equals(id)) {
                 return powerPortal;
             }
         }
@@ -70,7 +39,7 @@ public class StorageUtil {
      */
     public static PowerPortal searchPowerPortal (String gateName) {
         for (PowerPortal powerPortal: portals) {
-            if (powerPortal.getPortalName().equals(gateName)) {
+            if (powerPortal.getName().equals(gateName)) {
                 return powerPortal;
             }
         }
@@ -83,7 +52,7 @@ public class StorageUtil {
      */
     public static void deletePowerPortal (UUID id) {
         for (PowerPortal powerPortal: portals) {
-            if (powerPortal.getID().equals(id)) {
+            if (powerPortal.getId().equals(id)) {
                 portals.remove(powerPortal);
                 break;
             }
@@ -104,7 +73,7 @@ public class StorageUtil {
         writer.flush();
         writer.close();
 
-        getLogger().info(ChatColor.GREEN + "[PowerPortals] saved powerportals.json");
+        Bukkit.getLogger().info(ChatColor.GREEN + "[PowerPortals] saved powerportals.json");
     }
 
     /**
@@ -120,7 +89,7 @@ public class StorageUtil {
             PowerPortal[] p = gson.fromJson(reader, PowerPortal[].class);
             portals = new ArrayList<>(Arrays.asList(p));
 
-            getLogger().info(ChatColor.GREEN + "[PowerPortals] loaded powerportals.json");
+            Bukkit.getLogger().info(ChatColor.GREEN + "[PowerPortals] loaded powerportals.json");
         }
     }
 }

@@ -34,7 +34,7 @@ public class LinkCommand implements CommandExecutor {
 
                     if (exit != null) {
 
-                        Block block = entrance.getLever().getBlock();
+                        Block block = entrance.getLever();
                         if ( block.getType() == Material.LEVER) {
                             Switch lever = (Switch) block.getBlockData();
                             lever.setPowered(false);

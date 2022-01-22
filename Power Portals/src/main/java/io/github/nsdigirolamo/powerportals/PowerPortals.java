@@ -30,6 +30,7 @@ public final class PowerPortals extends JavaPlugin {
 
         this.getCommand("link").setExecutor(new LinkCommand());
 
+        /*
         try {
             StorageUtil.loadPowerPortals();
         } catch (FileNotFoundException e) {
@@ -37,6 +38,7 @@ public final class PowerPortals extends JavaPlugin {
         }
 
         getLogger().info(ChatColor.GREEN + "PowerPortals is now enabled!");
+         */
     }
 
     @Override
