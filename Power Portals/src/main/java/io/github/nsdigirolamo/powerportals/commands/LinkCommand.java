@@ -2,7 +2,6 @@ package io.github.nsdigirolamo.powerportals.commands;
 
 import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.models.PowerPortal;
-import io.github.nsdigirolamo.powerportals.utils.ActivationUtil;
 import io.github.nsdigirolamo.powerportals.utils.LinkUtil;
 import io.github.nsdigirolamo.powerportals.utils.StorageUtil;
 import org.bukkit.*;

@@ -2,13 +2,11 @@ package io.github.nsdigirolamo.powerportals.eventlisteners;
 
 import io.github.nsdigirolamo.powerportals.models.Linkage;
 import io.github.nsdigirolamo.powerportals.utils.LinkUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;

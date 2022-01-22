@@ -4,12 +4,9 @@ import io.github.nsdigirolamo.powerportals.commands.LinkCommand;
 import io.github.nsdigirolamo.powerportals.eventlisteners.PortalActivateListener;
 import io.github.nsdigirolamo.powerportals.eventlisteners.PortalWaterListener;
 import io.github.nsdigirolamo.powerportals.eventlisteners.TeleportTriggerListener;
-import io.github.nsdigirolamo.powerportals.utils.StorageUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import java.io.FileNotFoundException;
 
 public final class PowerPortals extends JavaPlugin {
 

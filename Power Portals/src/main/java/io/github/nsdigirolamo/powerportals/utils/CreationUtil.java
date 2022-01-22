@@ -1,6 +1,5 @@
 package io.github.nsdigirolamo.powerportals.utils;
 
-import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.models.PowerPortal;
 import org.bukkit.*;
 import org.bukkit.block.Block;

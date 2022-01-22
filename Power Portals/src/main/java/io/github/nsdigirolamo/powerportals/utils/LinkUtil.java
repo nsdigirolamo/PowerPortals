@@ -5,7 +5,6 @@ import io.github.nsdigirolamo.powerportals.models.Linkage;
 import io.github.nsdigirolamo.powerportals.models.PowerPortal;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.util.Vector;
