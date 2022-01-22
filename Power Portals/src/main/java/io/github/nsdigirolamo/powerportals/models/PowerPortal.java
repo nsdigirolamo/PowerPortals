@@ -10,6 +10,9 @@ import org.bukkit.util.Vector;
 import java.util.Arrays;
 import java.util.UUID;
 
+/**
+ * A portal that players can use to teleport to and from.
+ */
 public class PowerPortal {
     private final UUID portalId;
     private final String portalName;
@@ -22,6 +25,16 @@ public class PowerPortal {
     private final Block[] triggers;
     private final Vector facing;
 
+
+    /**
+     * Class constructor.
+     * @param portalName Name of the portal
+     * @param player Owner of the portal
+     * @param portal The blocks that make up the portal
+     * @param origin The block a player will be transported to
+     * @param lever The portal's lever
+     * @param triggers The blocks that portal use
+     */
     public PowerPortal (String portalName, Player player, Block[] portal, int origin, int lever, int[] triggers) {
         this.portalId = UUID.randomUUID();
         this.portalName = portalName;
@@ -69,6 +82,11 @@ public class PowerPortal {
         this.facing = ((Switch) this.lever.getBlockData()).getFacing().getDirection();
     }
 
+    /**
+     * Checks equality between two PowerPortals.
+     * @param p The portal to be compared
+     * @return True if the portals are the same
+     */
     public boolean equals (PowerPortal p) {
         return
                 portalId.equals(p.getId()) &&
@@ -82,42 +100,83 @@ public class PowerPortal {
                 Arrays.equals(triggers, p.getTriggers());
     }
 
+    /**
+     * Gets the ID of this PowerPortal.
+     * @return The portal's portalId
+     */
     public UUID getId () {
         return portalId;
     }
 
+    /**
+     * Gets the name of this PowerPortal.
+     * @return This PowerPortal's portalName
+     */
     public String getName () {
         return portalName;
     }
 
+    /**
+     * Gets the ID of this PowerPortal's owner.
+     * @return This PowerPortal's ownerId
+     */
     public UUID getOwnerId () {
         return ownerId;
     }
 
+    /**
+     * Gets the name of this PowerPortal's owner.
+     * @return This PowerPortal's ownerId
+     */
     public String getOwnerName () {
         return ownerName;
     }
 
+    /**
+     * Gets the blocks making up this PowerPortal.
+     * @return An array of the blocks making up this PowerPortal
+     */
     public Block[] getPortal () {
         return portal;
     }
 
+    /**
+     * Gets the world this PowerPortal exists in.
+     * @return This PowerPortal's world
+     */
     public World getWorld () {
         return world;
     }
 
+    /**
+     * Gets the origin of this PowerPortal. The origin block is the block a player will be teleported on top of if this
+     * portal is their destination.
+     * @return This PowerPortal's origin
+     */
     public Block getOrigin () {
         return origin;
     }
 
+    /**
+     * Gets the lever of this PowerPortal. The lever block is the lever a player will use to activate this PowerPortal.
+     * @return This PowerPortal's lever
+     */
     public Block getLever () {
         return lever;
     }
 
+    /**
+     * Gets the triggers of this PowerPortal. The triggers are the blocks the player will enter to use this PowerPortal.
+     * @return An array of blocks making up the triggers of this PowerPortal
+     */
     public Block[] getTriggers () {
         return triggers;
     }
 
+    /**
+     * Gets the direction this PowerPortal is facing.
+     * @return The direction this PowerPortal is facing
+     */
     public Vector getFacing () {
         return facing;
     }

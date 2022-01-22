@@ -11,7 +11,14 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+/**
+ * Listens for any portals being activated.
+ */
 public class PortalActivateListener implements Listener {
+    /**
+     * Listens for a player right-clicking a lever. Calls various methods in case that lever belongs to a PowerPortal.
+     * @param event The event where a player interacted with the lever
+     */
     @EventHandler
     public void onLeverClicked(PlayerInteractEvent event) {
         if (event.getAction() == Action.RIGHT_CLICK_BLOCK && event.getClickedBlock().getType() == Material.LEVER) {

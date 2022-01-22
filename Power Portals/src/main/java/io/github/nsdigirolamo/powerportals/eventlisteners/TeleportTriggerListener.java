@@ -11,10 +11,18 @@ import org.bukkit.event.player.PlayerMoveEvent;
 
 import java.util.ArrayList;
 
+/**
+ * Listens for a player entering the trigger blocks of a PowerPortal, and checks to see if that PowerPortal belongs to
+ * a Linkage.
+ */
 public class TeleportTriggerListener implements Listener {
 
     ArrayList<Linkage> linkages = LinkUtil.getLinkages();
 
+    /**
+     * Listens for player movement into a PowerPortal's triggers.
+     * @param event The player moving event
+     */
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent event) {
         Player player = event.getPlayer();

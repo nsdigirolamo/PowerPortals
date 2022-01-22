@@ -11,18 +11,34 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
+/**
+ * A utility for storing and saving PowerPortals.
+ */
 public class StorageUtil {
 
     private static ArrayList<PowerPortal> portals = new ArrayList<>();
 
+    /**
+     * Gets the stored ArrayList of PowerPortals.
+     * @return An ArrayList of PowerPortals
+     */
     public static ArrayList<PowerPortal> getPortals() {
         return portals;
     }
 
+    /**
+     * Adds a PowerPortal to the ArrayList of stored PowerPortals.
+     * @param portal The PowerPortal to be stored
+     */
     public static void storePowerPortal (PowerPortal portal) {
         portals.add(portal);
     }
 
+    /**
+     * Reads a PowerPortal from the ArrayList of stored PowerPortals based on its portalId.
+     * @param id The PowerPortal's ID
+     * @return The PowerPortal with the given ID, null if no PowerPortal was found with a matching ID
+     */
     public static PowerPortal readPowerPortal (UUID id) {
         for (PowerPortal powerPortal: portals) {
             if (powerPortal.getId().equals(id)) {
@@ -33,13 +49,13 @@ public class StorageUtil {
     }
 
     /**
-     * Searches for a portal with the given gateName
-     * @param gateName The name of the gate.
-     * @return
+     * Searches for a portal with the given name.
+     * @param name The name
+     * @return The PowerPortal with the given name, null if no PowerPortal was found with a matching name
      */
-    public static PowerPortal searchPowerPortal (String gateName) {
+    public static PowerPortal searchPowerPortal (String name) {
         for (PowerPortal powerPortal: portals) {
-            if (powerPortal.getName().equals(gateName)) {
+            if (powerPortal.getName().equals(name)) {
                 return powerPortal;
             }
         }

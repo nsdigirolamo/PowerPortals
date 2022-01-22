@@ -9,28 +9,35 @@ import org.bukkit.block.data.type.Switch;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
 
+/**
+ * A utility for creating PowerPortals.
+ */
 public class CreationUtil {
 
     private static final ChatColor RED = ChatColor.RED;
     private static final ChatColor GREEN = ChatColor.GREEN;
 
     /**
-     * Attempts to create a new Power Portal after a player activates a lever.
-     * @param player The player
-     * @param lever The activated lever.
-     * @return True if the creation was successful.
+     * Attempts to create a new PowerPortal.
+     * Fails if the PowerPortal's sign has no text.
+     * Fails if there are no blocks under the PowerPortal.
+     * Fails if the PowerPortal is too close to another PowerPortal.
+     * Fails if the PowerPortal's name is already taken.
+     * @param player The owner of the new PowerPortal.
+     * @param lever The lever of the new PowerPortal.
+     * @return True if the PowerPortal was successfully created. False if the creation failed.
      */
     public static boolean attemptCreation (Player player, Block lever) {
 
         Block[] portal;
 
         if (lever.getType() == Material.LEVER) {
-            portal = createPossibleSmallPortal(lever);
+            portal = createSmallPortal(lever);
         } else {
             return false;
         }
 
-        if(checkPossibleSmallPortal(portal)) {
+        if(checkSmallPortal(portal)) {
 
             Sign sign = (Sign) portal[13].getState();
             String name = sign.getLine(0);
@@ -76,13 +83,13 @@ public class CreationUtil {
     }
 
     /**
-     * Creates a 3D Block array of a possible new small portal.
-     * @param lever The portal's lever.
-     * @return A Block[][][] representing the possible small portal.
+     * Creates an array of Blocks that represents a Small PowerPortal.
+     * @param lever The lever of the Small PowerPortal
+     * @return An array of Blocks that make up a Small PowerPortal
      */
-    private static Block[] createPossibleSmallPortal (Block lever) {
+    private static Block[] createSmallPortal (Block lever) {
         /*
-         * Looking for a Portal with this pattern:
+         * Creating a Portal with this pattern:
          *
          *  Plane 1       Plane 2
          *  0 1 2 3 4     0 1 2 3 4
@@ -212,11 +219,31 @@ public class CreationUtil {
     }
 
     /**
-     * Checks a possible small portal to see if the blocks are placed in valid locations.
-     * @param portal A Block[][][] representing a possible small portal.
-     * @return True if the portal is valid.
+     * Checks a possible Small PowerPortal to see if the blocks are placed in valid locations and are valid types.
+     * @param portal An array of Blocks representing a possible Small PowerPortal
+     * @return True if the Small PowerPortal is valid
      */
-    private static boolean checkPossibleSmallPortal(Block[] portal) {
+    private static boolean checkSmallPortal(Block[] portal) {
+        /*
+         * Looking for a Portal with this pattern:
+         *
+         *  Plane 1       Plane 2
+         *  0 1 2 3 4     0 1 2 3 4
+         *      []     0             0
+         *    []AA[]   1      AA     1
+         *    []AA[]   2    SSAALL   2
+         *  [][]AA[][] 3      AA     3
+         *      GG     4      OO     4
+         *
+         * Plane 1 is in front of Plane 0.
+         * AA are air blocks.
+         * GG is any solid ground.
+         * OO is the portal's origin block (also solid ground).
+         * [] are obsidian blocks.
+         * LL is a lever. It is attached to block 3-2 on Plane 0.
+         * SS is a sign. It is attached to block 1-2 on Plane 0.
+         *
+         */
         return  portal[0].getType() == Material.OBSIDIAN      &&
                 portal[1].getType() == Material.OBSIDIAN      &&
                 portal[2].getType() == Material.OBSIDIAN      &&
@@ -240,9 +267,9 @@ public class CreationUtil {
     }
 
     /**
-     * Checks if an origin of a portal is too close to any of the other portals.
-     * @param origin The origin of the portal.
-     * @return True if the origin is far enough away from the other portals.
+     * Checks if an origin of a PowerPortal is too close to any of the other PowerPortals.
+     * @param origin The origin of the PowerPortal
+     * @return True if the PowerPortal is far enough away from other PowerPortals
      */
     private static boolean checkDistance(Location origin) {
         for (PowerPortal portal: StorageUtil.getPortals()) {
@@ -254,9 +281,9 @@ public class CreationUtil {
     }
 
     /**
-     * Checks if a portal name is already taken by another portal.
-     * @param portalName The portal name.
-     * @return True if the name is not taken.
+     * Checks if a PowerPortal name is already taken by another PowerPortal.
+     * @param portalName The name.
+     * @return True if the name is not taken
      */
     private static boolean checkName(String portalName) {
         for (PowerPortal portal: StorageUtil.getPortals()) {

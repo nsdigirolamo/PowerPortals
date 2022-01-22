@@ -13,6 +13,9 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.UUID;
 
+/**
+ * Utility for creating and using Linkages
+ */
 public class LinkUtil {
 
     private static ArrayList<Linkage> linkages = new ArrayList<>();
@@ -23,12 +26,13 @@ public class LinkUtil {
     }
 
     /**
-     * Creates a Linkage between two PowerPortals.
+     * Creates a Linkage between two PowerPortals. Fails if the Linkage's entrance is already the entrance for an
+     * already existing Linkage.
      * @param entrance The entrance of the Linkage.
      * @param exit The exit of the Linkage.
-     * @return The new Linkage. Null if the Linkage creation failed.
+     * @return The new Linkage, null if the Linkage creation failed
      */
-    public static Linkage createLinkage (Player player, @Nullable PowerPortal entrance, @Nullable PowerPortal exit) {
+    public static Linkage createLinkage (Player player, PowerPortal entrance, PowerPortal exit) {
 
         for (Linkage linkage: linkages) {
             // Check to make sure we're not duplicating an entrance
@@ -53,6 +57,13 @@ public class LinkUtil {
         return linkage;
     }
 
+    /**
+     * Triggers a linkage between two PowerPortals. If a player enters the triggers for an entrance PowerPortal, they
+     * will be teleported to the origin of the exit PowerPortal.
+     * @param player The player entering the triggers
+     * @param linkage The Linkage being triggered
+     * @param trigger The trigger block being entered by the player
+     */
     public static void triggerLinkage (Player player, Linkage linkage, Block trigger) {
         for (Block block: linkage.getEntranceTriggers()) {
             if (block.equals(trigger)) {
