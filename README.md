@@ -1,3 +1,4 @@
 # Power-Portals
-A Spigot plugin for Minecraft that adds interconnected portals.
-Heavily inspired by the now abandoned Wormhole-X-Treme plugin that you can find here: https://github.com/WolfNetDevelopment/Wormhole-X-Treme
+<p>A Spigot plugin for Minecraft that adds interconnected portals.</p>
+<p>Heavily inspired by the now abandoned <a href="https://github.com/WolfNetDevelopment/Wormhole-X-Treme">Wormhole-X-Treme</a> Bukkit plugin for Minecraft.</p>
+<p>The plugin's .jar file can be found <a href="https://github.com/nsdigirolamo/Power-Portals/raw/main/Power%20Portals/target/powerportals-1.0-SNAPSHOT.jar">here</a> for download.</p>
