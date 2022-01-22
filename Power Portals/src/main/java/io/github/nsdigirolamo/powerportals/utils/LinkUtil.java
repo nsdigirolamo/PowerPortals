@@ -39,49 +39,19 @@ public class LinkUtil {
             }
         }
 
-        boolean entranceBlocked = false;
-        boolean exitBlocked = false;
+        // TODO: Check for any blocks blocking the portal water or teleport destination
 
-        if (blockedTriggers(entrance)) {
-            entranceBlocked = true;
+        for (Block block: entrance.getTriggers()) {
+            block.setType(Material.WATER, false);
         }
-
-        if (blockedTriggers(exit)) {
-            exitBlocked = true;
-        }
-
-        if (!entranceBlocked && !exitBlocked) {
-            for (Block block: entrance.getTriggers()) {
-                block.setType(Material.WATER, false);
-            }
-            for (Block block: exit.getTriggers()) {
-                block.setType(Material.WATER, false);
-            }
-        } else {
-            if (entranceBlocked && exitBlocked) {
-                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance and exit blocked.");
-            } else if (entranceBlocked){
-                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Entrance blocked.");
-            } else if (exitBlocked) {
-                player.sendMessage(ChatColor.RED + "[PowerPortals] Link failed. Exit blocked.");
-            }
-            return null;
+        for (Block block: exit.getTriggers()) {
+            block.setType(Material.WATER, false);
         }
 
         Linkage linkage = new Linkage(entrance, exit, entrance.getTriggers(), exit.getTriggers());
         linkages.add(linkage);
         player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
         return linkage;
-    }
-
-    private static boolean blockedTriggers(PowerPortal portal) {
-        Block[] triggers = portal.getTriggers();
-        for (Block block : triggers) {
-            if (block.getType() != Material.AIR || block.getType() != Material.WATER) {
-                return false;
-            }
-        }
-        return true;
     }
 
     public static void triggerLinkage (Player player, Linkage linkage, Block trigger) {
