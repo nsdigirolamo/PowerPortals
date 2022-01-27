@@ -1,21 +1,18 @@
 package io.github.nsdigirolamo.powerportals.utils;
 
-import com.sk89q.worldedit.WorldEditException;
 import com.sk89q.worldedit.bukkit.BukkitAdapter;
 import com.sk89q.worldedit.extent.clipboard.Clipboard;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormat;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardFormats;
 import com.sk89q.worldedit.extent.clipboard.io.ClipboardReader;
-import com.sk89q.worldedit.extent.clipboard.io.ClipboardWriter;
 import com.sk89q.worldedit.math.BlockVector3;
-import com.sk89q.worldedit.math.transform.AffineTransform;
-import com.sk89q.worldedit.regions.CuboidRegion;
-import com.sk89q.worldedit.session.ClipboardHolder;
 import com.sk89q.worldedit.world.block.BaseBlock;
 import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.Sign;
@@ -23,18 +20,22 @@ import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * PortalCreationUtil is a utility that handles the creation of PowerPortals and storage of their design schematics.
+ */
 public class PortalCreationUtil {
 
     private static ArrayList<Clipboard> designs = new ArrayList<>();
 
-
+    /**
+     * Loads portal design schematics from the portaldesigns directory.
+     */
     public static void loadDesigns () {
 
         File portalDesignsDir = new File(PowerPortals.getPlugin().getDataFolder().getAbsolutePath() + "/portaldesigns");
@@ -68,6 +69,12 @@ public class PortalCreationUtil {
         }
     }
 
+    /**
+     * Creates a portal, depending on the stored portal designs and if a valid design exists at the lever's location.
+     * @param owner The owner of the new portal.
+     * @param lever The lever of the new portal.
+     * @return The new portal, or null if a portal was not able to be created.
+     */
     public static PowerPortal createPortal (Player owner, Block lever) {
 
         if (!lever.getType().equals(Material.LEVER)) {
@@ -82,6 +89,16 @@ public class PortalCreationUtil {
             PowerPortal portal = checkClipboard(clipboard, owner, lever, direction);
 
             if (portal != null) {
+
+                owner.sendMessage(ChatColor.GREEN + "[PowerPortals] Created a new portal for " + portal.getOwner().getName() + " with name \"" + portal.getName() + "\" at (" + portal.getX() + ", " + portal.getY() + ", " + portal.getZ() + ")");
+                owner.playSound(owner.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
+
+                PortalStorageUtil.storePortal(portal);
+
+                Bukkit.getLogger().info("[PowerPortals] " + portal.getOwner().getName() +
+                        " created a new portal named \"" + portal.getName() + "\" at (" + portal.getX() +
+                        ", " + portal.getY() + ", " + portal.getZ() + ")");
+
                 return portal;
             }
 
@@ -89,6 +106,14 @@ public class PortalCreationUtil {
         return null;
     }
 
+    /**
+     * Checks to make sure a given portal design schematic has all the proper elements of a portal design. A proper
+     * portal design has at least one trigger block (blue stained glass), exactly one lever, exactly one bedrock, and
+     * exactly one wall sign.
+     * @param clipboard The portal design as a clipboard.
+     * @param file The portal design schematic file.
+     * @return True if the given portal design has all the necessary components.
+     */
     private static boolean checkComponents(Clipboard clipboard, File file) {
 
         int minX = clipboard.getMinimumPoint().getBlockX();
@@ -141,6 +166,16 @@ public class PortalCreationUtil {
         }
     }
 
+    /**
+     * Checks a portal design's clipboard against an in-game location to see if the blocks of that location match up
+     * with the BlockData stored in the clipboard. If all the blocks in the in-game location match the clipboard,
+     * it means a portal exists at that location in the game.
+     * @param clipboard The portal design's clipboard.
+     * @param owner The owner of the portal.
+     * @param lever The lever of the portal in the game world.
+     * @param direction The direction the lever is facing.
+     * @return A new PowerPortal if the blocks in the game world are valid.
+     */
     private static PowerPortal checkClipboard (Clipboard clipboard, Player owner, Block lever, BlockFace direction) {
 
         PowerPortal portal;
@@ -178,8 +213,6 @@ public class PortalCreationUtil {
 
         boolean match = true;
 
-        Bukkit.getLogger().info(direction.toString());
-
         /*
          * This section of code makes sure each block in the game matches the relative block stored in the clipboard.
          * It also stores the blocks if they match properly.
@@ -212,9 +245,7 @@ public class PortalCreationUtil {
                         relativeZ = -1 * relativeZ;
                         relativeX = -1 * relativeX;
 
-                    } // west doesn't need adjustments
-
-                    Bukkit.getLogger().info(direction.getDirection().getX() + " " + direction.getDirection().getY() + " " + direction.getDirection().getZ() + " = " + relativeX + " " + relativeY + " " + relativeZ);
+                    } // west needs no adjustment
 
                     Block relativeBlock = lever.getRelative(relativeX, relativeY, relativeZ);
 
@@ -291,10 +322,7 @@ public class PortalCreationUtil {
                 }
 
                 portal = new PowerPortal(name, owner, portals, triggers, clears, originIndex, leverIndex, signIndex);
-                PortalStorageUtil.storePortal(portal);
-                Bukkit.getLogger().info("[PowerPortals] " + portal.getOwner().getName() +
-                        " created a new portal named \"" + portal.getName() + "\" at (" + portal.getX() +
-                        ", " + portal.getY() + ", " + portal.getZ() + ")");
+
                 return portal;
             }
         }
