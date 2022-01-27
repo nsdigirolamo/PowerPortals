@@ -17,8 +17,12 @@ public class PortalStorageUtil {
      * Gets stored PowerPortals.
      * @return All stored PowerPortals.
      */
-    public static ArrayList<PowerPortal> getPortals () {
-        return portals;
+    public static PowerPortal[] getPortals () {
+        PowerPortal[] list = new PowerPortal[portals.size()];
+        for (PowerPortal p: portals) {
+            list[portals.indexOf(p)] = p;
+        }
+        return list;
     }
 
     /**
