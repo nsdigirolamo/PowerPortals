@@ -3,14 +3,18 @@ package io.github.nsdigirolamo.powerportals.structures;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
-import org.bukkit.util.Vector;
 
 import java.util.Arrays;
 import java.util.UUID;
 
+/**
+ * A PowerPortal is an in-game structure that players can use to teleport throughout the game world. PowerPortal designs
+ * are based of the schematic files found in the portaldesigns directory of the plugin's data folder.
+ */
 public class PowerPortal {
     private final UUID portalId;
     private final String portalName;
@@ -22,10 +26,21 @@ public class PowerPortal {
     private final Block origin;
     private final Block lever;
     private final Block sign;
-    private final Vector facing;
+    private final BlockFace facing;
     private PowerPortal exit;
     private boolean entrance;
 
+    /**
+     * Class constructor.
+     * @param portalName The name of the PowerPortal.
+     * @param owner The owner of the PowerPortal.
+     * @param portalBlocks All blocks that make up the PowerPortal.
+     * @param triggerIndexes The indexes of portalBlocks where trigger blocks can be found.
+     * @param clearIndexes The indexes of portalBlocks where clear blocks can be found.
+     * @param originIndex The index of portalBlocks where the origin block can be found.
+     * @param leverIndex The index of portalBlocks where the lever block can be found.
+     * @param signIndex The index of PortalBlocks where the sign block can be found.
+     */
     public PowerPortal (String portalName, Player owner, Block[] portalBlocks, int[] triggerIndexes, int[] clearIndexes, int originIndex, int leverIndex, int signIndex) {
         this.portalId = UUID.randomUUID();
         this.portalName = portalName;
@@ -83,11 +98,16 @@ public class PowerPortal {
             }
         }
 
-        this.facing = ((Switch) lever.getBlockData()).getFacing().getDirection();
+        this.facing = ((Switch) lever.getBlockData()).getFacing();
         this.exit = null;
         this.entrance = false;
     }
 
+    /**
+     * Check equality between two PowerPortals.
+     * @param p A PowerPortal.
+     * @return True if both PowerPortals are equal.
+     */
     public boolean equals (PowerPortal p) {
         return portalId.equals(p.getId()) && portalName.equals(p.getName()) && owner.equals(p.getOwner()) &&
                 Arrays.equals(portalBlocks, p.getPortalBlocks()) && world.equals(p.getWorld()) &&
@@ -96,70 +116,137 @@ public class PowerPortal {
                 (entrance == p.isEntrance());
     }
 
+    /**
+     * Get the ID of the PowerPortal.
+     * @return The PowerPortal's portalId.
+     */
     public UUID getId () {
         return portalId;
     }
 
+    /**
+     * Get the name of the PowerPortal.
+     * @return The PowerPortal's portalName.
+     */
     public String getName () {
         return portalName;
     }
 
+    /**
+     * Get the owner of the PowerPortal.
+     * @return The PowerPortal's owner.
+     */
     public Player getOwner () {
         return owner;
     }
 
+    /**
+     * Get all blocks that make up the PowerPortal, including trigger blocks, clear blocks, and the origin block.
+     * @return The PowerPortal's portalBlocks.
+     */
     public Block[] getPortalBlocks () {
         return portalBlocks;
     }
 
+    /**
+     * Get the world the PowerPortal exists in.
+     * @return The PowerPortal's world.
+     */
     public World getWorld () {
         return world;
     }
 
+    /**
+     * Get the trigger blocks of the PowerPortal.
+     * @return The PowerPortal's triggerBlocks.
+     */
     public Block[] getTriggerBlocks () {
         return triggerBlocks;
     }
 
+    /**
+     * Get the origin block of the PowerPortal.
+     * @return The PowerPortal's origin.
+     */
     public Block getOrigin () {
         return origin;
     }
 
+    /**
+     * Get the x position of the PowerPortal.
+     * @return The x position of the PowerPortal's origin.
+     */
     public int getX () {
         return origin.getX();
     }
 
+    /**
+     * Get the y position of the PowerPortal.
+     * @return The y position of the PowerPortal's origin.
+     */
     public int getY () {
         return origin.getY();
     }
 
+    /**
+     * Get the z position of the PowerPortal.
+     * @return The z position of the PowerPortal's origin.
+     */
     public int getZ () {
         return origin.getZ();
     }
 
+    /**
+     * Get the lever of the PowerPortal.
+     * @return The PowerPortal's lever.
+     */
     public Block getLever () {
         return lever;
     }
 
-    public Vector getFacing () {
+    /**
+     * Get the direction the PowerPortal is facing.
+     * @return The PowerPortal's direction.
+     */
+    public BlockFace getFacing () {
         return facing;
     }
 
+    /**
+     * Get the exit of the PowerPortal if it exists.
+     * @return The PowerPortal's exit.
+     */
     public PowerPortal getExit () {
         return exit;
     }
 
+    /**
+     * Set the exit of the PowerPortal.
+     * @param portal The PowerPortal's exit.
+     */
     public void setExit (PowerPortal portal) {
         this.exit = portal;
     }
 
+    /**
+     * Remove the exit of the PowerPortal.
+     */
     public void removeExit () {
         this.exit = null;
     }
 
+    /**
+     * Check to see if the PowerPortal is an entrance.
+     * @return True if the PowerPortal is an entrance.
+     */
     public boolean isEntrance () {
         return entrance;
     }
 
+    /**
+     * Set whether the PowerPortal is an entrance.
+     * @param state True if the PowerPortal is an entrance.
+     */
     public void setEntrance (boolean state) {
         this.entrance = state;
     }
