@@ -44,6 +44,8 @@ public class ActivatedPortalListener implements Listener {
                 PowerPortal newPortal = PortalCreationUtil.createPortal(player, lever);
                 if (newPortal != null) {
                     event.setCancelled(true);
+                    leverSwitch.setPowered(false);
+                    newPortal.getLever().setBlockData(leverSwitch);
                 }
             }
         }
