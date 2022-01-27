@@ -229,6 +229,14 @@ public class PowerPortal {
     }
 
     /**
+     * Check to see if this portal has an exit.
+     * @return True if an exit exists.
+     */
+    public boolean hasExit () {
+        return exit != null;
+    }
+
+    /**
      * Remove the exit of the PowerPortal.
      */
     public void removeExit () {
