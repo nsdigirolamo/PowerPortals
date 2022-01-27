@@ -90,7 +90,6 @@ public class PortalCreationUtil {
 
             if (portal != null) {
 
-                owner.sendMessage(ChatColor.GREEN + "[PowerPortals] Created a new portal for " + portal.getOwner().getName() + " with name \"" + portal.getName() + "\" at (" + portal.getX() + ", " + portal.getY() + ", " + portal.getZ() + ")");
                 owner.playSound(owner.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
 
                 PortalStorageUtil.storePortal(portal);
@@ -304,7 +303,14 @@ public class PortalCreationUtil {
         if (isMatch) {
             String name = "null";
             if (portalBlocks.get(signIndex).getState() instanceof Sign) {
-                name = ((Sign) portalBlocks.get(signIndex).getState()).getLine(0);
+                Sign sign = (Sign) portalBlocks.get(signIndex).getState();
+                Block origin = portalBlocks.get(originIndex);
+
+                name = (sign).getLine(0);
+                sign.setLine(1, owner.getName());
+                sign.setLine(2, "( " + origin.getX() + ", " + origin.getY() + ", " + origin.getZ() + ")");
+                sign.setLine(3, "");
+                sign.update();
 
                 Block[] portals = new Block[portalBlocks.size()];
                 for (Block block: portalBlocks) {
