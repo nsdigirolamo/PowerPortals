@@ -11,6 +11,9 @@ import org.bukkit.metadata.MetadataValue;
 
 import java.util.List;
 
+/**
+ * Link is a command that allows players to link two PowerPortals, so they can be used for teleportation.
+ */
 public class Link implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
