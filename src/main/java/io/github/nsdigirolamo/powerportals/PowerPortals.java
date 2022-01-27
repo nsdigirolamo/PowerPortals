@@ -1,6 +1,7 @@
 package io.github.nsdigirolamo.powerportals;
 
 import io.github.nsdigirolamo.powerportals.commands.Link;
+import io.github.nsdigirolamo.powerportals.commands.Portals;
 import io.github.nsdigirolamo.powerportals.listeners.ActivatedPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.TriggeredPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.WaterPortalListener;
@@ -16,6 +17,7 @@ public final class PowerPortals extends JavaPlugin {
         plugin = this;
         PortalCreationUtil.loadDesigns();
         this.getCommand("link").setExecutor(new Link());
+        this.getCommand("portals").setExecutor(new Portals());
         getServer().getPluginManager().registerEvents(new ActivatedPortalListener(), this);
         getServer().getPluginManager().registerEvents(new TriggeredPortalListener(), this);
         getServer().getPluginManager().registerEvents(new WaterPortalListener(), this);
