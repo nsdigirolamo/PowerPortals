@@ -3,6 +3,7 @@ package io.github.nsdigirolamo.powerportals;
 import io.github.nsdigirolamo.powerportals.commands.Link;
 import io.github.nsdigirolamo.powerportals.listeners.ActivatedPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.TriggeredPortalListener;
+import io.github.nsdigirolamo.powerportals.listeners.WaterPortalListener;
 import io.github.nsdigirolamo.powerportals.utils.PortalCreationUtil;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -17,6 +18,7 @@ public final class PowerPortals extends JavaPlugin {
         this.getCommand("link").setExecutor(new Link());
         getServer().getPluginManager().registerEvents(new ActivatedPortalListener(), this);
         getServer().getPluginManager().registerEvents(new TriggeredPortalListener(), this);
+        getServer().getPluginManager().registerEvents(new WaterPortalListener(), this);
     }
 
     @Override
