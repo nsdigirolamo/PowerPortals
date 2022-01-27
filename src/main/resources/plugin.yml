@@ -1,0 +1,24 @@
+name: PowerPortals
+version: '${project.version}'
+main: io.github.nsdigirolamo.powerportals.PowerPortals
+api-version: 1.18
+depend: [WorldEdit]
+commands:
+  link:
+    description: Link a PowerPortal to another PowerPortal.
+    permissions: powerportals.commands.link
+    usage: /link <name>
+permissions:
+  powerportals.*:
+    description: Wildcard permission for powerportals.
+    default: op
+    children:
+      powerportals.commands.*: true
+  powerportals.commands.*:
+    description: Wildcard permission for commands.
+    default: op
+    children:
+      powerportals.commands.link: true
+  powerportals.commands.link:
+    description: Allow use of /link
+    default: true
