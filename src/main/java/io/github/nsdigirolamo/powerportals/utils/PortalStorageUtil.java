@@ -3,12 +3,10 @@ package io.github.nsdigirolamo.powerportals.utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import io.github.nsdigirolamo.powerportals.PowerPortals;
-import io.github.nsdigirolamo.powerportals.adapters.BlockAdapter;
-import io.github.nsdigirolamo.powerportals.adapters.BlockFaceAdapter;
-import io.github.nsdigirolamo.powerportals.adapters.PlayerAdapter;
-import io.github.nsdigirolamo.powerportals.adapters.WorldAdapter;
+import io.github.nsdigirolamo.powerportals.adapters.*;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -55,7 +53,7 @@ public class PortalStorageUtil {
         builder.enableComplexMapKeySerialization().setPrettyPrinting();
         builder.registerTypeHierarchyAdapter(Block.class, new BlockAdapter());
         builder.registerTypeHierarchyAdapter(BlockFace.class, new BlockFaceAdapter());
-        builder.registerTypeHierarchyAdapter(Player.class, new PlayerAdapter());
+        builder.registerTypeHierarchyAdapter(OfflinePlayer.class, new OfflinePlayerAdapter());
         builder.registerTypeHierarchyAdapter(World.class, new WorldAdapter());
         Gson gson = builder.create();
 
@@ -80,7 +78,7 @@ public class PortalStorageUtil {
         builder.enableComplexMapKeySerialization().setPrettyPrinting();
         builder.registerTypeHierarchyAdapter(Block.class, new BlockAdapter());
         builder.registerTypeHierarchyAdapter(BlockFace.class, new BlockFaceAdapter());
-        builder.registerTypeHierarchyAdapter(Player.class, new PlayerAdapter());
+        builder.registerTypeHierarchyAdapter(OfflinePlayer.class, new OfflinePlayerAdapter());
         builder.registerTypeHierarchyAdapter(World.class, new WorldAdapter());
         Gson gson = builder.create();
 
