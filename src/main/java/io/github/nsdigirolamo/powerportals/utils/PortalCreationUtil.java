@@ -92,7 +92,8 @@ public class PortalCreationUtil {
 
                 owner.playSound(owner.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
 
-                PortalStorageUtil.storePortal(portal);
+
+                PortalStorageUtil.addPortal(portal);
 
                 Bukkit.getLogger().info("[PowerPortals] " + portal.getOwner().getName() +
                         " created a new portal named \"" + portal.getName() + "\" at (" + portal.getX() +
@@ -307,6 +308,14 @@ public class PortalCreationUtil {
                 Block origin = portalBlocks.get(originIndex);
 
                 name = (sign).getLine(0);
+
+                for (PowerPortal existingPortal: PortalStorageUtil.getPortals()) {
+                    if (existingPortal.getName().equals(name)) {
+                        owner.sendMessage(ChatColor.RED + "[PowerPortals] A portal with that name already exists.");
+                        return null;
+                    }
+                }
+
                 sign.setLine(1, owner.getName());
                 sign.setLine(2, "( " + origin.getX() + ", " + origin.getY() + ", " + origin.getZ() + ")");
                 sign.setLine(3, "");
