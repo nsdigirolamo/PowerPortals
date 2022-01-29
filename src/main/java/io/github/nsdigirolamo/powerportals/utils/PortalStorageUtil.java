@@ -41,9 +41,15 @@ public class PortalStorageUtil {
      * Stores a PowerPortal and saves it to powerportals.json
      * @param portal The PowerPortal to be stored.
      */
-    public static void storePortal (PowerPortal portal) {
-
+    public static void addPortal(PowerPortal portal) {
         portals.add(portal);
+        savePortals();
+    }
+
+    /**
+     * Saves all PowerPortals to powerportals.json
+     */
+    public static void savePortals () {
 
         GsonBuilder builder = new GsonBuilder();
         builder.enableComplexMapKeySerialization().setPrettyPrinting();
