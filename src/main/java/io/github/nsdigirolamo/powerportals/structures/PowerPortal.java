@@ -8,7 +8,6 @@ import org.bukkit.block.data.type.Switch;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
 
-import java.util.Arrays;
 import java.util.UUID;
 
 /**
@@ -104,19 +103,6 @@ public class PowerPortal {
     }
 
     /**
-     * Check equality between two PowerPortals.
-     * @param p A PowerPortal.
-     * @return True if both PowerPortals are equal.
-     */
-    public boolean equals (PowerPortal p) {
-        return portalId.equals(p.getId()) && portalName.equals(p.getName()) && owner.equals(p.getOwner()) &&
-                Arrays.equals(portalBlocks, p.getPortalBlocks()) && world.equals(p.getWorld()) &&
-                Arrays.equals(triggerBlocks, p.getTriggerBlocks()) && origin.equals(p.getOrigin()) &&
-                lever.equals(p.getLever()) && facing.equals(p.getFacing()) && exit.equals(p.getExit()) &&
-                (entrance == p.isEntrance());
-    }
-
-    /**
      * Get the ID of the PowerPortal.
      * @return The PowerPortal's portalId.
      */
@@ -164,6 +150,10 @@ public class PowerPortal {
         return triggerBlocks;
     }
 
+    public Block[] getClearBlocks () {
+        return clearBlocks;
+    }
+
     /**
      * Get the origin block of the PowerPortal.
      * @return The PowerPortal's origin.
@@ -202,6 +192,10 @@ public class PowerPortal {
      */
     public Block getLever () {
         return lever;
+    }
+
+    public Block getSign () {
+        return sign;
     }
 
     /**
