@@ -5,6 +5,7 @@ import io.github.nsdigirolamo.powerportals.commands.Portals;
 import io.github.nsdigirolamo.powerportals.listeners.ActivatedPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.TriggeredPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.WaterPortalListener;
+import io.github.nsdigirolamo.powerportals.utils.PortalActivationUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalCreationUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalStorageUtil;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -17,15 +18,6 @@ public final class PowerPortals extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
-        config = this.getConfig();
-        config.addDefault("database.host", "localhost");
-        config.addDefault("database.port", 3306);
-        config.addDefault("database.database", "powerportals");
-        config.addDefault("database.user", "admin");
-        config.addDefault("database.password", "password");
-        config.options().copyDefaults(true);
-        saveConfig();
 
         plugin = this;
 
@@ -41,6 +33,8 @@ public final class PowerPortals extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        PortalActivationUtil.deactivateAllPortals();
+        PortalStorageUtil.savePortals();
     }
 
     public static PowerPortals getPlugin() {
