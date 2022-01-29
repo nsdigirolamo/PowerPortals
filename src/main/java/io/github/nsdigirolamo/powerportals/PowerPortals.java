@@ -3,6 +3,7 @@ package io.github.nsdigirolamo.powerportals;
 import io.github.nsdigirolamo.powerportals.commands.Link;
 import io.github.nsdigirolamo.powerportals.commands.Portals;
 import io.github.nsdigirolamo.powerportals.listeners.ActivatedPortalListener;
+import io.github.nsdigirolamo.powerportals.listeners.PlayerQuitListener;
 import io.github.nsdigirolamo.powerportals.listeners.TriggeredPortalListener;
 import io.github.nsdigirolamo.powerportals.listeners.WaterPortalListener;
 import io.github.nsdigirolamo.powerportals.utils.PortalActivationUtil;
@@ -29,6 +30,7 @@ public final class PowerPortals extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new ActivatedPortalListener(), this);
         getServer().getPluginManager().registerEvents(new TriggeredPortalListener(), this);
         getServer().getPluginManager().registerEvents(new WaterPortalListener(), this);
+        getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);
     }
 
     @Override
