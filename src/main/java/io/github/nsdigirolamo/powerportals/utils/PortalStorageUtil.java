@@ -1,10 +1,22 @@
 package io.github.nsdigirolamo.powerportals.utils;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import io.github.nsdigirolamo.powerportals.PowerPortals;
+import io.github.nsdigirolamo.powerportals.adapters.BlockAdapter;
+import io.github.nsdigirolamo.powerportals.adapters.BlockFaceAdapter;
+import io.github.nsdigirolamo.powerportals.adapters.PlayerAdapter;
+import io.github.nsdigirolamo.powerportals.adapters.WorldAdapter;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Player;
 
+import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * PortalStorageUtil is a utility that handles the storage of PowerPortals.
@@ -26,11 +38,57 @@ public class PortalStorageUtil {
     }
 
     /**
-     * Stores a PowerPortal.
+     * Stores a PowerPortal and saves it to powerportals.json
      * @param portal The PowerPortal to be stored.
      */
     public static void storePortal (PowerPortal portal) {
+
         portals.add(portal);
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.enableComplexMapKeySerialization().setPrettyPrinting();
+        builder.registerTypeHierarchyAdapter(Block.class, new BlockAdapter());
+        builder.registerTypeHierarchyAdapter(BlockFace.class, new BlockFaceAdapter());
+        builder.registerTypeHierarchyAdapter(Player.class, new PlayerAdapter());
+        builder.registerTypeHierarchyAdapter(World.class, new WorldAdapter());
+        Gson gson = builder.create();
+
+        File file = new File(PowerPortals.getPlugin().getDataFolder().getAbsolutePath() + "/powerportals.json");
+
+        try {
+            Writer writer = new FileWriter(file, false);
+            gson.toJson(portals, writer);
+            writer.flush();
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Loads all PowerPortals from powerportals.json
+     */
+    public static void loadPortals () {
+
+        GsonBuilder builder = new GsonBuilder();
+        builder.enableComplexMapKeySerialization().setPrettyPrinting();
+        builder.registerTypeHierarchyAdapter(Block.class, new BlockAdapter());
+        builder.registerTypeHierarchyAdapter(BlockFace.class, new BlockFaceAdapter());
+        builder.registerTypeHierarchyAdapter(Player.class, new PlayerAdapter());
+        builder.registerTypeHierarchyAdapter(World.class, new WorldAdapter());
+        Gson gson = builder.create();
+
+        File file = new File(PowerPortals.getPlugin().getDataFolder().getAbsolutePath() + "/powerportals.json");
+
+        if (file.exists()) {
+            try {
+                Reader reader = new FileReader(file);
+                PowerPortal[] p = gson.fromJson(reader, PowerPortal[].class);
+                portals.addAll(Arrays.asList(p));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
