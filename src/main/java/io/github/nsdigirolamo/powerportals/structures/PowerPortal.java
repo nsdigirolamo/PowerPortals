@@ -1,6 +1,7 @@
 package io.github.nsdigirolamo.powerportals.structures;
 
 import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
@@ -18,7 +19,7 @@ import java.util.UUID;
 public class PowerPortal {
     private final UUID portalId;
     private String portalName;
-    private Player owner;
+    private OfflinePlayer owner;
     private final Block[] portalBlocks;
     private final World world;
     private final Block[] triggerBlocks;
@@ -134,7 +135,7 @@ public class PowerPortal {
      * Get the owner of the PowerPortal.
      * @return The PowerPortal's owner.
      */
-    public Player getOwner () {
+    public OfflinePlayer getOwner () {
         return owner;
     }
 
