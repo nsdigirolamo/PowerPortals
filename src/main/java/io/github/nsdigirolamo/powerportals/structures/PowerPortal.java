@@ -4,6 +4,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.block.Sign;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.block.data.type.WallSign;
 import org.bukkit.entity.Player;
@@ -16,8 +17,8 @@ import java.util.UUID;
  */
 public class PowerPortal {
     private final UUID portalId;
-    private final String portalName;
-    private final Player owner;
+    private String portalName;
+    private Player owner;
     private final Block[] portalBlocks;
     private final World world;
     private final Block[] triggerBlocks;
@@ -119,11 +120,33 @@ public class PowerPortal {
     }
 
     /**
+     * Sets the name of the PowerPortal. Also changes the PowerPortal's sign to reflect the new name.
+     * @param name The PowerPortal's new portalName.
+     */
+    public void setName (String name) {
+        this.portalName = name;
+        Sign sign = (Sign) this.sign.getState();
+        sign.setLine(0, "name");
+        sign.update();
+    }
+
+    /**
      * Get the owner of the PowerPortal.
      * @return The PowerPortal's owner.
      */
     public Player getOwner () {
         return owner;
+    }
+
+    /**
+     * Sets the owner of the PowerPortal. Also changes the PowerPortal's sign to reflect the new owner.
+     * @param newOwner The PowerPortal's new owner;
+     */
+    public void setOwner (Player newOwner) {
+        this.owner = newOwner;
+        Sign sign = (Sign) this.sign.getState();
+        sign.setLine(1, newOwner.getName());
+        sign.update();
     }
 
     /**
