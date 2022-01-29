@@ -22,7 +22,7 @@ public class Portals implements CommandExecutor {
                 for (PowerPortal portal: PortalStorageUtil.getPortals()) {
                     if (portal.getOwner().getUniqueId().equals(player.getUniqueId())) {
                         count++;
-                        message = message + count +" ... " + portal.getName() + " at (" + portal.getX() + ", " +
+                        message = message + count + " ... " + portal.getName() + " at (" + portal.getX() + ", " +
                                 portal.getY() + ", " + portal.getZ() + ")\n";
                     }
                 }
