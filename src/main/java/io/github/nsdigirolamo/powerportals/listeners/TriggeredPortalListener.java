@@ -3,7 +3,6 @@ package io.github.nsdigirolamo.powerportals.listeners;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utils.PortalStorageUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalTeleportUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

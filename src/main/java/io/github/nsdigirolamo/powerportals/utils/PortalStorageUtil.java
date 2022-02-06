@@ -10,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.entity.Player;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -100,7 +99,9 @@ public class PortalStorageUtil {
      * @param portal The PowerPortal to be deleted.
      */
     public static void deletePortal (PowerPortal portal) {
+        PortalActivationUtil.deactivatePortal(portal.getOwner().getPlayer(), portal);
         portals.remove(portal);
+        savePortals();
     }
 
     /**

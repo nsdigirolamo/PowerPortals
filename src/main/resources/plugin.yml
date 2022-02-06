@@ -2,7 +2,7 @@ name: PowerPortals
 version: '${project.version}'
 main: io.github.nsdigirolamo.powerportals.PowerPortals
 api-version: 1.18
-depend: [WorldEdit]
+softdepend: [WorldEdit]
 commands:
   link:
     description: Link a PowerPortal to another PowerPortal.

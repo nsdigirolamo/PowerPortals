@@ -9,10 +9,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.metadata.MetadataValue;
 
+import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * PortalActivationUtil is a utility that handles the activation of portals.
@@ -26,8 +25,11 @@ public class PortalActivationUtil {
      */
     public static void activatePortal (Player player, PowerPortal portal) {
         for (Block block: portal.getClearBlocks()) {
-            if (!block.getType().equals(Material.AIR)) {
-                player.sendMessage(ChatColor.RED + "[PowerPortals] " + portal.getName() + " failed to activate. Entrance is blocked.");
+            if (!block.getType().equals(Material.AIR) && !block.getType().equals(Material.WATER)) {
+                Switch lever = (Switch) portal.getLever().getBlockData();
+                lever.setPowered(false);
+                portal.getLever().setBlockData(lever);
+                player.sendMessage(ChatColor.RED + "[PowerPortals] Activation failed. Entrance is blocked");
                 return;
             }
         }
@@ -43,21 +45,28 @@ public class PortalActivationUtil {
      * @param player The player who deactivated the portal.
      * @param portal The portal to be deactivated.
      */
-    public static void deactivatePortal(Player player, PowerPortal portal) {
+    public static void deactivatePortal(@Nullable Player player, PowerPortal portal) {
 
         for (Block block: portal.getTriggerBlocks()) {
-            block.setType(Material.AIR);
+            if (block.getType().equals(Material.WATER)) {
+                block.setType(Material.AIR);
+            }
         }
 
         if (portal.hasExit()) {
             for (Block block: portal.getExit().getTriggerBlocks()) {
-                block.setType(Material.AIR);
+                if (block.getType().equals(Material.WATER)) {
+                    block.setType(Material.AIR);
+                }
             }
         }
 
         portal.setEntrance(false);
         portal.removeExit();
-        player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+
+        if (player != null) {
+            player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+        }
 
         Switch lever = (Switch) portal.getLever().getBlockData();
         lever.setPowered(false);
@@ -68,13 +77,30 @@ public class PortalActivationUtil {
      * Deactivates all PowerPortals.
      */
     public static void deactivateAllPortals () {
+
+        for (PowerPortal portal: PortalStorageUtil.getPortals()) {
+
+            for (Block block: portal.getTriggerBlocks()) {
+                if (block.getType().equals(Material.WATER)) {
+                    block.setType(Material.AIR);
+                }
+            }
+
+            if (portal.hasExit()) {
+                for (Block block: portal.getExit().getTriggerBlocks()) {
+                    if (block.getType().equals(Material.WATER)) {
+                        block.setType(Material.AIR);
+                    }
+                }
+            }
+
+            portal.setEntrance(false);
+            portal.removeExit();
+        }
+
         Collection<? extends Player> players = Bukkit.getOnlinePlayers();
         for (Player player: players) {
-            List<MetadataValue> values = player.getMetadata("activatedPortal");
-            if (!values.isEmpty() && values.get(0).value() instanceof PowerPortal) {
-                PowerPortal portal = (PowerPortal) values.get(0).value();
-                PortalActivationUtil.deactivatePortal(player, portal);
-            }
+            player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
         }
     }
 

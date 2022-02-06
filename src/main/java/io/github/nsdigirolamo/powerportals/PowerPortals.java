@@ -2,12 +2,9 @@ package io.github.nsdigirolamo.powerportals;
 
 import io.github.nsdigirolamo.powerportals.commands.Link;
 import io.github.nsdigirolamo.powerportals.commands.Portals;
-import io.github.nsdigirolamo.powerportals.listeners.ActivatedPortalListener;
-import io.github.nsdigirolamo.powerportals.listeners.PlayerQuitListener;
-import io.github.nsdigirolamo.powerportals.listeners.TriggeredPortalListener;
-import io.github.nsdigirolamo.powerportals.listeners.WaterPortalListener;
+import io.github.nsdigirolamo.powerportals.listeners.*;
+import io.github.nsdigirolamo.powerportals.utils.CustomDesignUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalActivationUtil;
-import io.github.nsdigirolamo.powerportals.utils.PortalCreationUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalStorageUtil;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -21,13 +18,22 @@ public final class PowerPortals extends JavaPlugin {
     public void onEnable() {
 
         plugin = this;
+        config = this.getConfig();
+        config.addDefault("maxPortalCount", 20);
+        config.addDefault("customPortalDesigns", false);
+        config.options().copyDefaults(true);
+        saveConfig();
 
-        PortalCreationUtil.loadDesigns();
+        if (config.getBoolean("customPortalDesigns")) {
+            CustomDesignUtil.loadDesigns();
+        }
+
         PortalStorageUtil.loadPortals();
 
         this.getCommand("link").setExecutor(new Link());
         this.getCommand("portals").setExecutor(new Portals());
         getServer().getPluginManager().registerEvents(new ActivatedPortalListener(), this);
+        getServer().getPluginManager().registerEvents(new DestroyedPortalListener(), this);
         getServer().getPluginManager().registerEvents(new TriggeredPortalListener(), this);
         getServer().getPluginManager().registerEvents(new WaterPortalListener(), this);
         getServer().getPluginManager().registerEvents(new PlayerQuitListener(), this);

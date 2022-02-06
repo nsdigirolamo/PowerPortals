@@ -4,10 +4,8 @@ import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utils.PortalActivationUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalCreationUtil;
 import io.github.nsdigirolamo.powerportals.utils.PortalStorageUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.Player;
@@ -41,11 +39,11 @@ public class ActivatedPortalListener implements Listener {
                 PortalActivationUtil.deactivatePortal(player, portal);
                 player.sendMessage(ChatColor.YELLOW + "[PowerPortals] " + portal.getName() + " portal deactivated.");
             } else {
-                PowerPortal newPortal = PortalCreationUtil.createPortal(player, lever);
-                if (newPortal != null) {
+                boolean created = PortalCreationUtil.attemptCreation(player, lever);
+                if (created) {
                     event.setCancelled(true);
                     leverSwitch.setPowered(false);
-                    newPortal.getLever().setBlockData(leverSwitch);
+                    lever.setBlockData(leverSwitch);
                 }
             }
         }
