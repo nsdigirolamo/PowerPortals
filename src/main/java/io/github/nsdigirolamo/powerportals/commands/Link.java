@@ -36,7 +36,6 @@ public class Link implements CommandExecutor {
                     }
 
                     if (entrance != null) {
-
                         if (args.length == 1) {
 
                         PowerPortal exit = StorageUtility.findPortal(args[0]);
