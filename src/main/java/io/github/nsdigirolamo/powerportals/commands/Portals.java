@@ -26,7 +26,7 @@ public class Portals implements CommandExecutor {
 
                 // if there is one argument check if its "all" or a page number and pass to the appropriate method
                 } else if (args.length == 1) {
-                    if (args[0].equals("all")) {
+                    if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
 
                         listAllPortals(player, 1);
 
@@ -41,7 +41,7 @@ public class Portals implements CommandExecutor {
 
                     }
                 // if there are two arguments check if the first is "all" and the second is a page number
-                } else if (args.length == 2) {
+                } else if (args.length == 2 && player.hasPermission("powerportals.commands.portals.all")) {
                     if (args[0].equals("all")) {
 
                         try {
