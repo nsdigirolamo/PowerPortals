@@ -27,3 +27,7 @@ permissions:
   powerportals.commands.portals:
     description: Allow use of /portals
     default: true
+
+  powerportals.commands.portals.all:
+    description: Allow use of /portals all
+    default: op
