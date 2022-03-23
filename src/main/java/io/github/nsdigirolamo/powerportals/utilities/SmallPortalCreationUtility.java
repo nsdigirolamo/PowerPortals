@@ -131,7 +131,7 @@ public class SmallPortalCreationUtility {
             if (direction.equals(BlockFace.NORTH)) {
                 location = new Location(world, lever.getX() + 1.5, lever.getY() - 1.0, lever.getZ() + 0.5, -180, 0);
             } else if (direction.equals(BlockFace.SOUTH)) {
-                location = new Location(world, lever.getX() - 0.5, lever.getY() - 1.0, lever.getZ() + 0.5, 180, 0);
+                location = new Location(world, lever.getX() - 0.5, lever.getY() - 1.0, lever.getZ() + 0.5, 0, 0);
             } else if (direction.equals(BlockFace.EAST)) {
                 location = new Location(world, lever.getX() + 0.5, lever.getY() - 1.0, lever.getZ() + 1.5, -90, 0);
             } else {
@@ -153,7 +153,6 @@ public class SmallPortalCreationUtility {
                                     possiblePortal[i][j][k].getBlockData() instanceof WallSign)) {
 
                                 isPortal = false;
-                                Bukkit.getLogger().info("failed comparing " + SMALL_PORTAL[i][j][k] + " and " + possiblePortal[i][j][k].getType() + " at " + possiblePortal[i][j][k].getLocation());
                                 break topLoop;
 
                             }
@@ -217,8 +216,6 @@ public class SmallPortalCreationUtility {
             }
         }
 
-        PowerPortals.getPlugin().getLogger().info("Created a new portal owned by " + owner.getName() + " named \"" +
-                name + "\" at " + location);
         return new PowerPortal(name, location, owner, structure.toArray(new Block[0]), triggers);
     }
 
