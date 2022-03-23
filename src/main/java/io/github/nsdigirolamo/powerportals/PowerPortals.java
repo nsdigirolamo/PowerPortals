@@ -1,6 +1,7 @@
 package io.github.nsdigirolamo.powerportals;
 
 import io.github.nsdigirolamo.powerportals.commands.Link;
+import io.github.nsdigirolamo.powerportals.commands.Portals;
 import io.github.nsdigirolamo.powerportals.commands.tabcompleters.LinkTabCompleter;
 import io.github.nsdigirolamo.powerportals.listeners.ActivationListener;
 import io.github.nsdigirolamo.powerportals.listeners.DestructionListener;
@@ -29,7 +30,10 @@ public final class PowerPortals extends JavaPlugin {
     public void onEnable() {
 
         plugin = this;
+
         config = this.getConfig();
+        config.addDefault("maxPortalCount", 20);
+        config.options().copyDefaults(true);
         saveConfig();
 
         StorageUtility.load();
@@ -39,6 +43,7 @@ public final class PowerPortals extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new DestructionListener(), this);
         this.getCommand("link").setExecutor(new Link());
         this.getCommand("link").setTabCompleter(new LinkTabCompleter());
+        this.getCommand("portals").setExecutor(new Portals());
 
         plugin.getLogger().info("PowerPortals is now enabled.");
 
