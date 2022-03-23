@@ -1,5 +1,6 @@
 package io.github.nsdigirolamo.powerportals.listeners;
 
+import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.ActivationUtility;
 import io.github.nsdigirolamo.powerportals.utilities.SmallPortalCreationUtility;
@@ -60,16 +61,33 @@ public class ActivationListener implements Listener {
 
                     if (portal != null) {
 
-                        StorageUtility.storePortal(portal);
-                        player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
+                        int maxPortalCount = PowerPortals.getPlugin().getConfig().getInt("maxPortalCount");
 
-                        double x = portal.getX();
-                        double y = portal.getY();
-                        double z = portal.getZ();
-                        String name = portal.getName();
-                        player.sendMessage(ChatColor.GREEN + "[ P² ]" + ChatColor.GRAY + " Portal \"" + name +
-                                "\" created at (" + x + ", " + y + ", " + z + ")");
-                        event.setCancelled(true);
+                        if (StorageUtility.findPortals(player).length < maxPortalCount ||
+                                player.hasPermission("powerportals.portals.byPassMax")) {
+
+                            StorageUtility.storePortal(portal);
+                            player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
+
+                            double x = portal.getX();
+                            double y = portal.getY();
+                            double z = portal.getZ();
+                            String name = portal.getName();
+
+                            PowerPortals.getPlugin().getLogger().info("Created a new portal owned by " +
+                                    player.getName() + " named \"" + name + "\" at " + portal.getLocation());
+
+                            player.sendMessage(ChatColor.GREEN + "[ P² ]" + ChatColor.GRAY + " Portal \"" + name +
+                                    "\" created at (" + x + ", " + y + ", " + z + ")");
+
+                            event.setCancelled(true);
+
+                        } else {
+
+                            player.sendMessage(ChatColor.RED + "[ P² ]" + ChatColor.GRAY +
+                                    " Portal creation failed. You have reached the maximum allowed number of portals.");
+
+                        }
                     }
                 }
             }
