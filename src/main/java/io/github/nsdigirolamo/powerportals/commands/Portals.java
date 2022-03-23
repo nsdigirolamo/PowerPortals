@@ -19,19 +19,41 @@ public class Portals implements CommandExecutor {
             Player player = (Player) sender;
 
             if (player.hasPermission("powerportals.commands.portals")) {
+                // if there are no arguments print the first page of the player's portals
                 if (args.length == 0) {
 
                     listPortals(player, 1);
 
+                // if there is one argument check if its "all" or a page number and pass to the appropriate method
                 } else if (args.length == 1) {
+                    if (args[0].equals("all")) {
 
-                    try {
-                        int page = Integer.parseInt(args[0]);
-                        listPortals(player, page);
-                    } catch (NumberFormatException e) {
-                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. You must provide a page number.");
+                        listAllPortals(player, 1);
+
+                    } else {
+
+                        try {
+                            int page = Integer.parseInt(args[0]);
+                            listPortals(player, page);
+                        } catch (NumberFormatException e) {
+                            player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid argument.");
+                        }
+
                     }
+                // if there are two arguments check if the first is "all" and the second is a page number
+                } else if (args.length == 2) {
+                    if (args[0].equals("all")) {
 
+                        try {
+                            int page = Integer.parseInt(args[1]);
+                            listAllPortals(player, page);
+                        } catch (NumberFormatException e) {
+                            player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid arguments.");
+                        }
+
+                    } else {
+                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid arguments.");
+                    }
                 } else {
                     player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too many arguments.");
                 }
@@ -45,7 +67,7 @@ public class Portals implements CommandExecutor {
     /**
      * Provides the player with a list of PowerPortals they own.
      * @param owner the player.
-     * @param pageNum the page number the player would like to see.
+     * @param pageNum the page number of the list.
      */
     private static void listPortals (Player owner, int pageNum) {
 
@@ -75,5 +97,39 @@ public class Portals implements CommandExecutor {
 
         owner.sendMessage(message);
         owner.playSound(owner.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
+    }
+
+    /**
+     * Provides the player with a list of all PowerPortals.
+     * @param player the player.
+     * @param pageNum the page number of the list.
+     */
+    private static void listAllPortals (Player player, int pageNum) {
+        PowerPortal[] portals = StorageUtility.getPortals();
+        // integer division chops off the decimal, add one to round up to the proper max page number
+        int maxPages = (portals.length / 10) + 1;
+
+        if (pageNum > maxPages) {
+            pageNum = maxPages;
+        }
+
+        int startIndex = (pageNum * 10) - 10;
+        int endIndex = pageNum * 10;
+
+        if (endIndex > portals.length) {
+            endIndex = portals.length;
+        }
+
+        String message = ChatColor.GREEN + " --+-- [ PowerPortals " + ChatColor.GRAY + "(" + pageNum + " / " +
+                maxPages + ")" + ChatColor.GREEN + " ] --+--\n";
+
+        // TODO: alphabetize this output
+        for (int i = startIndex; i < endIndex; i++) {
+            message += ChatColor.GREEN + "[ " + (i + 1) + " ] " + ChatColor.WHITE + portals[i].getName() + ChatColor.GRAY +
+                    " (" + portals[i].getX() + ", " + portals[i].getY() + ", " + portals[i].getZ() + ")\n";
+        }
+
+        player.sendMessage(message);
+        player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
     }
 }
