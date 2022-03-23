@@ -3,7 +3,7 @@
 <h2>Short Term Goals</h2>
 <ul>
   <li>Add large portals</li>
-  <li>Add a list command</li>
+  <li>Add a list command for all portals</li>
   <li>Add portal passwords as an option for players</li>
   <li>Add portal statistics so players can see the number of visitors to their portal</li>
 </ul>
