@@ -10,7 +10,7 @@
 <h2>Long Term Goals</h2>
 <ul>
   <li>Allow for custom portal designs</li>
-  <li>Use a database for storing portals instead of a json file</li>
+  <li>Shorten the time it takes to load the powerportals.json file or just use a database for storing portals instead of a file</li>
   <li>Maybe allow for entities to pass through portals?</li>
   <li>Actually get the plugin to a releasable state</li>
 </ul>
