@@ -9,21 +9,21 @@ commands:
     description: Link two PowerPortals
     permissions: powerportals.commands.link
     usage: /link <name>
+  portals:
+    description: List owned PowerPortals
+    permissions: powerportals.commands.portals
+    usage: /portals <page>
 
 permissions:
 
-  powerportals.*:
-    description: Wildcard permission for PowerPortals plugin
+  powerportals.portals.byPassMax:
+    description: Allows a player to own more than the maximum number of portals
     default: op
-    children:
-      powerportals.commands.*: true
-
-  powerportals.commands.*:
-    description: Wildcard permission for commands.
-    default: op
-    children:
-      powerportals.commands.link: true
 
   powerportals.commands.link:
     description: Allow use of /link
+    default: true
+
+  powerportals.commands.portals:
+    description: Allow use of /portals
     default: true
