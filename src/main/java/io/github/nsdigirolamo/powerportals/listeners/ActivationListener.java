@@ -3,6 +3,7 @@ package io.github.nsdigirolamo.powerportals.listeners;
 import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.ActivationUtility;
+import io.github.nsdigirolamo.powerportals.utilities.LargePortalCreationUtility;
 import io.github.nsdigirolamo.powerportals.utilities.SmallPortalCreationUtility;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
 import org.bukkit.ChatColor;
@@ -37,13 +38,13 @@ public class ActivationListener implements Listener {
                     for (PowerPortal portal : portals) {
                         if (!portal.isActivated() && !leverSwitch.isPowered()) {
 
-                            ActivationUtility.activate(player, portal);
+                            ActivationUtility.activate(portal, player);
                             player.sendMessage(ChatColor.GREEN + "[ P² ]" + ChatColor.GRAY + " Portal Activated. Use /link <name> to travel.");
                             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 1, 1);
 
                         } else if (portal.isActivated() && leverSwitch.isPowered()) {
 
-                            ActivationUtility.deactivate(player, portal);
+                            ActivationUtility.deactivate(portal, player);
                             player.sendMessage(ChatColor.YELLOW + "[ P² ]" + ChatColor.GRAY + " Portal Deactivated.");
                             player.playSound(player.getLocation(), Sound.BLOCK_BEACON_DEACTIVATE, 1, 1);
 
@@ -51,12 +52,32 @@ public class ActivationListener implements Listener {
                     }
                 } else {
 
-                    PowerPortal portal = null;
+                    PowerPortal smallPortal = null;
 
                     try {
-                        portal = SmallPortalCreationUtility.attemptCreation(player, lever);
+                        smallPortal = SmallPortalCreationUtility.attemptCreation(player, lever);
                     } catch (IllegalArgumentException e) {
                         player.sendMessage(ChatColor.RED + e.getMessage());
+                    }
+
+                    PowerPortal largePortal = null;
+
+                    try {
+                        largePortal = LargePortalCreationUtility.attemptCreation(player, lever);
+                    } catch (IllegalArgumentException e) {
+                        player.sendMessage(ChatColor.RED + e.getMessage());
+                    }
+
+                    PowerPortal portal = null;
+
+                    if (smallPortal != null && largePortal == null) {
+
+                        portal = smallPortal;
+
+                    } else if (smallPortal == null && largePortal != null) {
+
+                        portal = largePortal;
+
                     }
 
                     if (portal != null) {
