@@ -1,9 +1,11 @@
 package io.github.nsdigirolamo.powerportals.listeners;
 
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
+import io.github.nsdigirolamo.powerportals.utilities.ActivationUtility;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,6 +26,7 @@ public class DestructionListener implements Listener {
      * @param portal The portal to be removed.
      */
     private void destroyPortal (PowerPortal portal) {
+        ActivationUtility.deactivate(portal, null);
         Player owner = Bukkit.getPlayer(portal.getOwnerID());
         StorageUtility.deletePortal(portal);
         if (owner != null) {
@@ -43,6 +46,8 @@ public class DestructionListener implements Listener {
 
         for (PowerPortal portal : brokenPortals) {
             destroyPortal(portal);
+            Player player = event.getPlayer();
+            player.playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
         }
     }
 
