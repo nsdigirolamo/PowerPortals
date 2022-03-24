@@ -5,6 +5,7 @@ import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -53,6 +54,8 @@ public class Link implements CommandExecutor {
                             for (Block trigger : exit.getTriggers()) {
                                 trigger.setType(Material.WATER, false);
                             }
+
+                            player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
 
                         } else {
                             player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. There is no portal named \"" + args[0] + "\".");
