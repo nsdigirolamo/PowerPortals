@@ -8,14 +8,16 @@ import org.bukkit.block.data.type.Switch;
 import org.bukkit.entity.Player;
 import org.bukkit.metadata.FixedMetadataValue;
 
+import javax.annotation.Nullable;
+
 public class ActivationUtility {
 
     /**
      * Activates a portal and sets player metadata.
-     * @param player the player who activated a portal.
      * @param portal the portal to be activated.
+     * @param player the player who activated a portal.
      */
-    public static void activate (Player player, PowerPortal portal) {
+    public static void activate(PowerPortal portal, Player player) {
 
         portal.setActivated(true);
         player.setMetadata("activatedPortal",
@@ -25,10 +27,10 @@ public class ActivationUtility {
 
     /**
      * Deactivates a portal and removes player metadata. Also deactivates the portal's exit if it exists.
-     * @param player the player who deactivated a portal.
      * @param portal the portal to be deactivated.
+     * @param player the player who deactivated a portal.
      */
-    public static void deactivate (Player player, PowerPortal portal) {
+    public static void deactivate(PowerPortal portal, @Nullable Player player) {
 
         portal.setActivated(false);
 
@@ -57,7 +59,9 @@ public class ActivationUtility {
             lever.setPowered(false);
             portal.getLever().setBlockData(lever);
 
-            player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+            if (player != null) {
+                player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+            }
         }
     }
 
