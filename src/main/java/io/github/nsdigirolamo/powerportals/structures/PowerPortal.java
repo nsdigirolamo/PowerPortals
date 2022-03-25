@@ -29,6 +29,8 @@ public class PowerPortal {
      * @param owner the PowerPortal's owner
      * @param structure the blocks that make up the PowerPortal
      * @param triggers the blocks that will trigger teleportation
+     * @throws IllegalArgumentException if there is not exactly one wall sign in the structure
+     * @throws IllegalArgumentException if there is not exactly one lever in the structure
      */
     public PowerPortal (String name, Location location, Player owner, Block[] structure, Block[] triggers) {
         this.id = UUID.randomUUID();
@@ -166,7 +168,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the location of the PowerPortal
+     * Sets the location of this PowerPortal
      * @param location the new location
      */
     public void setLocation(Location location) {
@@ -184,6 +186,8 @@ public class PowerPortal {
     /**
      * Sets the structure of the PowerPortal. Also resets the PowerPortal's sign and lever based on the new structure.
      * @param structure the new structure
+     * @throws IllegalArgumentException if there is not exactly one wall sign in the structure
+     * @throws IllegalArgumentException if there is not exactly one lever in the structure
      */
     public void setStructure (Block[] structure) {
         int signCount = 0;
