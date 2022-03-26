@@ -136,9 +136,9 @@ public class LargePortalCreationUtility {
 
     /**
      * Generates a 3D array of blocks representing a possible large PowerPortal in the game world.
-     * @param direction the direction the portal is facing.
-     * @param lever the lever of the portal.
-     * @return a 3D array of blocks.
+     * @param direction the direction the portal is facing
+     * @param lever the lever of the portal
+     * @return a 3D array of blocks
      */
     private static Block[][][] generatePossiblePortal (BlockFace direction, Block lever) {
 
@@ -207,8 +207,8 @@ public class LargePortalCreationUtility {
 
     /**
      * Attempt to create a large PowerPortal with the given lever.
-     * @param lever the lever of the new portal.
-     * @return a new PowerPortal if one was detected, null if otherwise.
+     * @param lever the lever of the new portal
+     * @return a new PowerPortal if one was detected, null if otherwise
      */
     public static PowerPortal attemptCreation (Player player, Block lever) {
         if (lever.getType().equals(Material.LEVER)) {
@@ -280,7 +280,7 @@ public class LargePortalCreationUtility {
     }
 
     /**
-     * Creates a large portal with the given arguments
+     * Creates a large portal with the given arguments.
      * @param location the location of the new portal
      * @param owner the owner of the new portal
      * @param portal the structure blocks of the new portal
@@ -304,7 +304,10 @@ public class LargePortalCreationUtility {
                     if (!block.getType().equals(Material.AIR)) {
                         structure.add(block);
                         if (block.getState() instanceof Sign) {
-                            name = ((Sign) block.getState()).getLine(0);
+                            Sign sign = (Sign) block.getState();
+                            sign.setLine(1, owner.getName());
+                            sign.update();
+                            name = sign.getLine(0);
                         }
                     }
                 }

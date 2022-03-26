@@ -1,6 +1,5 @@
 package io.github.nsdigirolamo.powerportals.utilities;
 
-import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -47,10 +46,10 @@ public class SmallPortalCreationUtility {
     };
 
     /**
-     * Generates a 3D array of blocks representing a possible PowerPortal in the game world.
-     * @param direction the direction the portal is facing.
-     * @param lever the lever of the portal.
-     * @return a 3D array of blocks.
+     * Generates a 3D array of blocks representing a possible small PowerPortal in the game world.
+     * @param direction the direction the portal is facing
+     * @param lever the lever of the portal
+     * @return a 3D array of blocks
      */
     private static Block[][][] generatePossiblePortal (BlockFace direction, Block lever) {
 
@@ -117,9 +116,9 @@ public class SmallPortalCreationUtility {
     }
 
     /**
-     * Attempt to create a PowerPortal with the given lever.
-     * @param lever the lever of the new portal.
-     * @return a new PowerPortal if one was detected, null if otherwise.
+     * Attempt to create a small PowerPortal with the given lever.
+     * @param lever the lever of the new portal
+     * @return a new PowerPortal if one was detected, null if otherwise
      */
     public static PowerPortal attemptCreation (Player player, Block lever) {
         if (lever.getType().equals(Material.LEVER)) {
@@ -191,7 +190,7 @@ public class SmallPortalCreationUtility {
     }
 
     /**
-     * Creates a small portal with the given arguments
+     * Creates a small portal with the given arguments.
      * @param location the location of the new portal
      * @param owner the owner of the new portal
      * @param portal the structure blocks of the new portal
@@ -200,7 +199,11 @@ public class SmallPortalCreationUtility {
     private static PowerPortal create (Location location, Player owner, Block[][][] portal) {
 
         ArrayList<Block> structure = new ArrayList<Block>();
-        Block[] triggers = { portal[1][0][2], portal[1][1][2], portal[1][2][2] };
+        Block[] triggers = {
+                portal[1][0][2],
+                portal[1][1][2],
+                portal[1][2][2]
+        };
         String name = "unnamed";
 
         for (Block[][] xPlane : portal) {
@@ -209,7 +212,10 @@ public class SmallPortalCreationUtility {
                     if (!block.getType().equals(Material.AIR)) {
                         structure.add(block);
                         if (block.getState() instanceof Sign) {
-                            name = ((Sign) block.getState()).getLine(0);
+                            Sign sign = (Sign) block.getState();
+                            sign.setLine(1, owner.getName());
+                            sign.update();
+                            name = sign.getLine(0);
                         }
                     }
                 }
