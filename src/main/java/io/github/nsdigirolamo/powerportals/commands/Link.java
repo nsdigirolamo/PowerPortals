@@ -27,17 +27,18 @@ public class Link implements CommandExecutor {
 
             if (player.hasPermission("powerportals.commands.Link")) {
 
-                    PowerPortal entrance = null;
-                    List<MetadataValue> metadata = player.getMetadata("activatedPortal");
+                PowerPortal entrance = null;
+                List<MetadataValue> metadata = player.getMetadata("activatedPortal");
 
-                    for (MetadataValue value : metadata) {
-                        if (PowerPortals.getPlugin().equals(value.getOwningPlugin())) {
-                            entrance = StorageUtility.findPortal((UUID) value.value());
-                        }
+                for (MetadataValue value : metadata) {
+                    if (PowerPortals.getPlugin().equals(value.getOwningPlugin())) {
+                        entrance = StorageUtility.findPortal((UUID) value.value());
                     }
+                }
 
-                    if (entrance != null) {
-                        if (args.length == 1) {
+                if (entrance != null) {
+                    // TODO: having no arguments prints an incorrect error message
+                    if (args.length == 1) {
 
                         PowerPortal exit = StorageUtility.findPortal(args[0]);
 
@@ -60,6 +61,8 @@ public class Link implements CommandExecutor {
                         } else {
                             player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. There is no portal named \"" + args[0] + "\".");
                         }
+                    } else if (args.length < 1) {
+                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too few arguments.");
                     } else {
                         player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too many arguments.");
                     }
