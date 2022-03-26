@@ -15,6 +15,7 @@ public class PowerPortal {
     private String name;
     private Location location;
     private UUID ownerID;
+    private String password;
     private Block[] structure;
     private Block[] triggers;
     private Block sign;
@@ -37,6 +38,7 @@ public class PowerPortal {
         this.name = name;
         this.location = location;
         this.ownerID = owner.getUniqueId();
+        this.password = null;
         this.structure = structure;
         this.triggers = triggers;
 
@@ -113,8 +115,15 @@ public class PowerPortal {
     /**
      * @return this PowerPortal's owner's ID
      */
-    public UUID getOwnerID() {
+    public UUID getOwnerID () {
         return this.ownerID;
+    }
+
+    /**
+     * @return this PowerPortal's password
+     */
+    public String getPassword () {
+        return this.password;
     }
 
     /**
@@ -160,7 +169,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the name of the PowerPortal
+     * Sets the name of the PowerPortal.
      * @param name the new name
      */
     public void setName (String name) {
@@ -168,7 +177,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the location of this PowerPortal
+     * Sets the location of the PowerPortal.
      * @param location the new location
      */
     public void setLocation(Location location) {
@@ -176,7 +185,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the owner of the PowerPortal
+     * Sets the owner of the PowerPortal.
      * @param ownerID the new owner's ID
      */
     public void setOwnerID (UUID ownerID) {
@@ -184,7 +193,15 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the structure of the PowerPortal. Also resets the PowerPortal's sign and lever based on the new structure.
+     * Sets the password of the PowerPortal.
+     * @param password the new password
+     */
+    public void setPassword (@Nullable String password) {
+        this.password = password;
+    }
+
+    /**
+     * Sets the structure of the PowerPortal. Also reassigns the PowerPortal's sign and lever based on the new structure.
      * @param structure the new structure
      * @throws IllegalArgumentException if there is not exactly one wall sign in the structure
      * @throws IllegalArgumentException if there is not exactly one lever in the structure
@@ -218,7 +235,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the triggers of the PowerPortal
+     * Sets the triggers of the PowerPortal.
      * @param triggers the new triggers
      */
     public void setTriggers (Block[] triggers) {
@@ -226,7 +243,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the activation state of the PowerPortal
+     * Sets the activation state of the PowerPortal.
      * @param state whether the PowerPortal is activated or not
      */
     public void setActivated (boolean state) {
@@ -234,7 +251,7 @@ public class PowerPortal {
     }
 
     /**
-     * Sets the exit of the PowerPortal
+     * Sets the exit of the PowerPortal.
      * @param exit the PowerPortal's exit
      */
     public void setExit (@Nullable PowerPortal exit) {
