@@ -33,7 +33,7 @@ public class TriggerListener implements Listener {
                 player.teleport(exit.getLocation());
                 player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
 
-                ActivationUtility.deactivate(player, entrance);
+                ActivationUtility.deactivate(entrance, player);
 
             }
         }
