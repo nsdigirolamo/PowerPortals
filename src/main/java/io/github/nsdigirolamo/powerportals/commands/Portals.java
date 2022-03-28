@@ -87,16 +87,17 @@ public class Portals implements CommandExecutor {
             endIndex = portals.length;
         }
 
-        String message = ChatColor.GREEN + " --+-- [ PowerPortals " + ChatColor.GRAY + "(" + pageNum + " / " +
-                maxPages + ")" + ChatColor.GREEN + " ] --+--\n";
+        StringBuilder message = new StringBuilder(ChatColor.GREEN + " --+-- [ PowerPortals " + ChatColor.GRAY + "(" +
+                pageNum + " / " + maxPages + ")" + ChatColor.GREEN + " ] --+--\n");
 
         // TODO: alphabetize this output
         for (int i = startIndex; i < endIndex; i++) {
-            message += ChatColor.GREEN + "[ " + (i + 1) + " ] " + ChatColor.WHITE + portals[i].getName() + ChatColor.GRAY +
-                    " (" + portals[i].getX() + ", " + portals[i].getY() + ", " + portals[i].getZ() + ")\n";
+            message.append(ChatColor.GREEN).append("[ ").append(i + 1).append(" ] ").append(ChatColor.WHITE)
+                    .append(portals[i].getName()).append(ChatColor.GRAY).append(" (").append(portals[i].getX())
+                    .append(", ").append(portals[i].getY()).append(", ").append(portals[i].getZ()).append(")\n");
         }
 
-        owner.sendMessage(message);
+        owner.sendMessage(message.toString());
         owner.playSound(owner.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
     }
 
@@ -121,16 +122,17 @@ public class Portals implements CommandExecutor {
             endIndex = portals.length;
         }
 
-        String message = ChatColor.GREEN + " --+-- [ PowerPortals " + ChatColor.GRAY + "(" + pageNum + " / " +
-                maxPages + ")" + ChatColor.GREEN + " ] --+--\n";
+        StringBuilder message = new StringBuilder(ChatColor.GREEN + " --+-- [ PowerPortals " + ChatColor.GRAY + "(" +
+                pageNum + " / " + maxPages + ")" + ChatColor.GREEN + " ] --+--\n");
 
         // TODO: alphabetize this output
         for (int i = startIndex; i < endIndex; i++) {
-            message += ChatColor.GREEN + "[ " + (i + 1) + " ] " + ChatColor.WHITE + portals[i].getName() + ChatColor.GRAY +
-                    " (" + portals[i].getX() + ", " + portals[i].getY() + ", " + portals[i].getZ() + ")\n";
+            message.append(ChatColor.GREEN).append("[ ").append(i + 1).append(" ] ").append(ChatColor.WHITE)
+                    .append(portals[i].getName()).append(ChatColor.GRAY).append(" (").append(portals[i].getX())
+                    .append(", ").append(portals[i].getY()).append(", ").append(portals[i].getZ()).append(")\n");
         }
 
-        player.sendMessage(message);
+        player.sendMessage(message.toString());
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 2);
     }
 }
