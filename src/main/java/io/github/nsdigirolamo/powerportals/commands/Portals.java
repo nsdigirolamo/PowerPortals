@@ -2,6 +2,7 @@ package io.github.nsdigirolamo.powerportals.commands;
 
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
+import io.github.nsdigirolamo.powerportals.utilities.interfaces.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
@@ -36,7 +37,7 @@ public class Portals implements CommandExecutor {
                             int page = Integer.parseInt(args[0]);
                             listPortals(player, page);
                         } catch (NumberFormatException e) {
-                            player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid argument.");
+                            player.sendMessage(Messages.INVALID_ARGS);
                         }
 
                     }
@@ -48,17 +49,17 @@ public class Portals implements CommandExecutor {
                             int page = Integer.parseInt(args[1]);
                             listAllPortals(player, page);
                         } catch (NumberFormatException e) {
-                            player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid arguments.");
+                            player.sendMessage(Messages.INVALID_ARGS);
                         }
 
                     } else {
-                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Invalid arguments.");
+                        player.sendMessage(Messages.INVALID_ARGS);
                     }
                 } else {
-                    player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too many arguments.");
+                    player.sendMessage(Messages.TOO_MANY_ARGS);
                 }
             } else {
-                player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. You do not have permission to use this command.");
+                player.sendMessage(Messages.NO_PERMISSION);
             }
         }
         return true;
