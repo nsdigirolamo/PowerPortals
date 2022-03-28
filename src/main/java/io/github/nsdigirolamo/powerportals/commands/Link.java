@@ -3,6 +3,7 @@ package io.github.nsdigirolamo.powerportals.commands;
 import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
+import io.github.nsdigirolamo.powerportals.utilities.interfaces.Messages;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -62,15 +63,15 @@ public class Link implements CommandExecutor {
                             player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. There is no portal named \"" + args[0] + "\".");
                         }
                     } else if (args.length < 1) {
-                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too few arguments.");
+                        player.sendMessage(Messages.TOO_FEW_ARGS);
                     } else {
-                        player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. Too many arguments.");
+                        player.sendMessage(Messages.TOO_MANY_ARGS);
                     }
                 } else {
                     player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. You need to activate an entrance.");
                 }
             } else {
-                player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. You do not have permission to use this command.");
+                player.sendMessage(Messages.NO_PERMISSION);
             }
         }
             return true;
