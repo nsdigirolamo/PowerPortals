@@ -5,29 +5,40 @@ api-version: 1.18
 website: nsdigirolamo.github.io
 
 commands:
+
   link:
-    description: Link two PowerPortals
+    description: Link two PowerPortals.
     permissions: powerportals.commands.link
-    usage: /link <name>
+    usage: /link <portalName>
+
+  portal:
+    description: Perform actions on a specific portal.
+    permissions: powerportals.commands.portal
+    usage: /portal (password) (set|delete) <portalName>
+
   portals:
-    description: List owned PowerPortals
+    description: List owned PowerPortals.
     permissions: powerportals.commands.portals
-    usage: /portals <page>
+    usage: /portals [<page>|all]
 
 permissions:
 
   powerportals.portals.byPassMax:
-    description: Allows a player to own more than the maximum number of portals
+    description: Allows a player to own more than the maximum number of portals.
     default: op
 
   powerportals.commands.link:
-    description: Allow use of /link
+    description: Allow use of the /link command.
+    default: true
+
+  powerportals.commands.portal:
+    description: Allow use of the /portal command.
     default: true
 
   powerportals.commands.portals:
-    description: Allow use of /portals
+    description: Allow use of the /portals command.
     default: true
 
   powerportals.commands.portals.all:
-    description: Allow use of /portals all
+    description: Allow use of the /portals all command.
     default: op
