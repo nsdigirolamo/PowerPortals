@@ -214,7 +214,7 @@ public class LargePortalCreationUtility {
         if (lever.getType().equals(Material.LEVER)) {
 
             BlockFace direction = ((Switch) lever.getBlockData()).getFacing();
-            Location location = null;
+            Location location;
             World world = lever.getWorld();
 
             if (direction.equals(BlockFace.NORTH)) {
@@ -254,9 +254,9 @@ public class LargePortalCreationUtility {
 
                 String name = ((Sign) possiblePortal[3][3][0].getState()).getLine(0);
 
-                if (!name.matches("[a-zA-Z0-9]+")) {
+                if (!name.matches("[\\w]+")) {
 
-                    throw new IllegalArgumentException("[ P² ] A PowerPortal's name can only be letters and numbers.");
+                    throw new IllegalArgumentException("[ P² ] A PowerPortal's name can only be letters and numbers and underscores.");
 
                 } else if (StorageUtility.findPortal(name) != null) {
 
@@ -288,7 +288,7 @@ public class LargePortalCreationUtility {
      */
     private static PowerPortal create (Location location, Player owner, Block[][][] portal) {
 
-        ArrayList<Block> structure = new ArrayList<Block>();
+        ArrayList<Block> structure = new ArrayList<>();
         Block[] triggers = {
                                  portal[4][1][2], portal[4][1][3], portal[4][1][4],
                 portal[4][2][1], portal[4][2][2], portal[4][2][3], portal[4][2][4], portal[4][2][5],
