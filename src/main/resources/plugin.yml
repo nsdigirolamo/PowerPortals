@@ -11,15 +11,10 @@ commands:
     permissions: powerportals.commands.link
     usage: /link <portalName>
 
-  portal:
-    description: Perform actions on a specific portal.
-    permissions: powerportals.commands.portal
-    usage: /portal (password) (set|delete) <portalName>
-
   portals:
     description: List owned PowerPortals.
     permissions: powerportals.commands.portals
-    usage: /portals [<page>|all]
+    usage: /portals [<pageNumber>|all]
 
 permissions:
 
@@ -29,10 +24,6 @@ permissions:
 
   powerportals.commands.link:
     description: Allow use of the /link command.
-    default: true
-
-  powerportals.commands.portal:
-    description: Allow use of the /portal command.
     default: true
 
   powerportals.commands.portals:
