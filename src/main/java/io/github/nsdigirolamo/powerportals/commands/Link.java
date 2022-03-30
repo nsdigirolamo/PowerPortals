@@ -60,7 +60,7 @@ public class Link implements CommandExecutor {
                             player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
 
                         } else {
-                            player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. There is no portal named \"" + args[0] + "\".");
+                            player.sendMessage(Messages.PORTAL_DNE);
                         }
                     } else if (args.length < 1) {
                         player.sendMessage(Messages.TOO_FEW_ARGS);
@@ -68,7 +68,7 @@ public class Link implements CommandExecutor {
                         player.sendMessage(Messages.TOO_MANY_ARGS);
                     }
                 } else {
-                    player.sendMessage(ChatColor.RED + "[ P² ] " + ChatColor.GRAY + "Command failed. You need to activate an entrance.");
+                    player.sendMessage(Messages.RED_PREFIX + "Command failed. You need to activate an entrance.");
                 }
             } else {
                 player.sendMessage(Messages.NO_PERMISSION);
