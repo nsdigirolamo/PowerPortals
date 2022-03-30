@@ -16,6 +16,11 @@ commands:
     permissions: powerportals.commands.portals
     usage: /portals [<pageNumber>|all]
 
+  pwarp:
+    description: Warp to a PowerPortal.
+    permissions: powerportals.commands.pwarp
+    usage: /pwarp <portalName>
+
 permissions:
 
   powerportals.portals.byPassMax:
@@ -32,4 +37,8 @@ permissions:
 
   powerportals.commands.portals.all:
     description: Allow use of the /portals all command.
+    default: op
+
+  powerportals.commands.pwarp:
+    description: Allow use of the /pwarp command.
     default: op

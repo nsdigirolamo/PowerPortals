@@ -2,6 +2,7 @@ package io.github.nsdigirolamo.powerportals;
 
 import io.github.nsdigirolamo.powerportals.commands.Link;
 import io.github.nsdigirolamo.powerportals.commands.Portals;
+import io.github.nsdigirolamo.powerportals.commands.Pwarp;
 import io.github.nsdigirolamo.powerportals.commands.tabcompleters.LinkTabCompleter;
 import io.github.nsdigirolamo.powerportals.listeners.ActivationListener;
 import io.github.nsdigirolamo.powerportals.listeners.DestructionListener;
@@ -44,6 +45,7 @@ public final class PowerPortals extends JavaPlugin {
         this.getCommand("link").setExecutor(new Link());
         this.getCommand("link").setTabCompleter(new LinkTabCompleter());
         this.getCommand("portals").setExecutor(new Portals());
+        this.getCommand("pwarp").setExecutor(new Pwarp());
 
         plugin.getLogger().info("PowerPortals is now enabled.");
 
