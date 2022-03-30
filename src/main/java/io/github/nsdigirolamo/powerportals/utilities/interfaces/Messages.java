@@ -18,6 +18,4 @@ public interface Messages {
 
     String PORTAL_DNE = RED_PREFIX + "Command failed. That portal does not exist.";
 
-
-
 }
