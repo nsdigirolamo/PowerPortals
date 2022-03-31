@@ -20,7 +20,7 @@ Above is an example of a powerportal. The player builds this structure and the n
 
 ## Commands
 * `/link <portalName>` ... Link two PowerPortals.
-* `/portals <pageNumber>|all]` ... List owned PowerPortals.
+* `/portals [<pageNumber>|all]` ... List owned PowerPortals.
 * `/pwarp <portalName>` ... Warp to a PowerPortal.
 
 ## Permissions
