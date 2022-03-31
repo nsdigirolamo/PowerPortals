@@ -6,7 +6,7 @@ Players can build powerportals in-game and teleport between portals. Each powerp
 
 <img src="https://i.imgur.com/8XaQ3xG.png" alt="an example of a powerportal" width=40%/>
 
-Above is an example of a powerportal. The player builds this structure and the name of the portal will be automatically set as the first line of the sign. The powerportal will be registered once the player uses the lever. After the powerportal is registered, a player can use the lever again and link their portal to any other portal using `/link <portalName`. After two portals are linked the player can teleport between them.
+Above is an example of a powerportal. The player builds this structure and the name of the portal will be automatically set as the first line of the sign. The powerportal will be registered once the player uses the lever. After the powerportal is registered, a player can use the lever again and link their portal to any other portal using `/link <portalName>`. After two portals are linked the player can teleport between them.
 
 ## Short Term Goals
 * Add powerportal passwords as an option for players</li>
