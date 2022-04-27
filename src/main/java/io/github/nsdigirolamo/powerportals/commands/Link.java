@@ -38,26 +38,37 @@ public class Link implements CommandExecutor {
 
                 if (entrance != null) {
                     // TODO: having no arguments prints an incorrect error message
-                    if (args.length == 1) {
+                    if (args.length == 1 || args.length == 2) {
 
                         PowerPortal exit = StorageUtility.findPortal(args[0]);
 
                         if (exit != null) {
 
-                            entrance.setExit(exit);
+                            if (args.length == 1 && exit.getPassword() != null) {
 
-                            player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+                                player.sendMessage(Messages.RED_PREFIX + "Command failed. That portal is password protected!");
 
-                            for (Block trigger : entrance.getTriggers()) {
-                                trigger.setType(Material.WATER, false);
+                            } else if (args.length == 2 && exit.getPassword() != null && !exit.getPassword().equals(args[1])) {
+
+                                player.sendMessage(Messages.RED_PREFIX + "Command failed. Incorrect password.");
+
+                            } else {
+
+                                entrance.setExit(exit);
+
+                                player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+
+                                for (Block trigger : entrance.getTriggers()) {
+                                    trigger.setType(Material.WATER, false);
+                                }
+
+                                for (Block trigger : exit.getTriggers()) {
+                                    trigger.setType(Material.WATER, false);
+                                }
+
+                                player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
+
                             }
-
-                            for (Block trigger : exit.getTriggers()) {
-                                trigger.setType(Material.WATER, false);
-                            }
-
-                            player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
-
                         } else {
                             player.sendMessage(Messages.PORTAL_DNE);
                         }
