@@ -73,15 +73,16 @@ public class Portals implements CommandExecutor {
     private static void listPortals (Player owner, int pageNum) {
 
         PowerPortal[] portals = StorageUtility.findPortals(owner);
+        int portalsPerPage = 8;
         // integer division chops off the decimal, add one to round up to the proper max page number
-        int maxPages = (portals.length / 10) + 1;
+        int maxPages = (portals.length / portalsPerPage) + 1;
 
         if (pageNum > maxPages) {
             pageNum = maxPages;
         }
 
-        int startIndex = (pageNum * 10) - 10;
-        int endIndex = pageNum * 10;
+        int startIndex = (pageNum * portalsPerPage) - portalsPerPage;
+        int endIndex = pageNum * portalsPerPage;
 
         if (endIndex > portals.length) {
             endIndex = portals.length;
@@ -108,15 +109,16 @@ public class Portals implements CommandExecutor {
      */
     private static void listAllPortals (Player player, int pageNum) {
         PowerPortal[] portals = StorageUtility.getPortals();
+        int portalsPerPage = 8;
         // integer division chops off the decimal, add one to round up to the proper max page number
-        int maxPages = (portals.length / 10) + 1;
+        int maxPages = (portals.length / portalsPerPage) + 1;
 
         if (pageNum > maxPages) {
             pageNum = maxPages;
         }
 
-        int startIndex = (pageNum * 10) - 10;
-        int endIndex = pageNum * 10;
+        int startIndex = (pageNum * portalsPerPage) - portalsPerPage;
+        int endIndex = pageNum * portalsPerPage;
 
         if (endIndex > portals.length) {
             endIndex = portals.length;
