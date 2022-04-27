@@ -8,15 +8,8 @@ Players can build powerportals in-game and teleport between portals. Each powerp
 
 Above is an example of a powerportal. The player builds this structure and the name of the portal will be automatically set as the first line of the sign. The powerportal will be registered once the player uses the lever. After the powerportal is registered, a player can use the lever again and link their portal to any other portal using `/link <portalName> [<password>]`. After two portals are linked the player can teleport between them.
 
-## Short Term Goals
-* Add a timeout so portals automatically deativate after a period of time.
-* Add powerportal statistics so players can see the number of visitors to their portal.
-
-## Long Term Goals
-* Allow for custom powerportal designs
-* Shorten the time it takes to load the powerportals.json file or just use a database for storing powerportals instead of a file.
-* Maybe allow for entities to pass through powerportals?
-* Actually get the plugin to a releasable state.
+## Goals
+* Allow for custom powerportal designs.
 
 ## Commands
 * `/link <portalName> [<password>]` ... Link two PowerPortals.
