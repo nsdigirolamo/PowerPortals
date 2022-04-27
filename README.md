@@ -10,7 +10,6 @@ Above is an example of a powerportal. The player builds this structure and the n
 
 ## Short Term Goals
 * Add a timeout so portals automatically deativate after a period of time.
-* Add powerportal passwords as an option for players.
 * Add powerportal statistics so players can see the number of visitors to their portal.
 
 ## Long Term Goals
@@ -20,9 +19,10 @@ Above is an example of a powerportal. The player builds this structure and the n
 * Actually get the plugin to a releasable state.
 
 ## Commands
-* `/link <portalName>` ... Link two PowerPortals.
+* `/link <portalName> [<password>]` ... Link two PowerPortals.
 * `/portals [<pageNumber>|all]` ... List owned PowerPortals.
 * `/pwarp <portalName>` ... Warp to a PowerPortal.
+* `/ppassword <portalName> [set|delete] [<password>]` ... Set or delete a PowerPortal's password. 
 
 ## Permissions
 * `powerportals.portals.byPassMax` ... Allows a player to own more than the maximum number of portals.
@@ -30,3 +30,4 @@ Above is an example of a powerportal. The player builds this structure and the n
 * `powerportals.commands.portals` ... Allow use of the /portals command.
 * `powerportals.commands.portals.all` ... Allow use of the /portals all command.
 * `powerportals.commands.pwarp` ... Allow use of the /pwarp command.
+* `powerportals.commands.ppassword` ... Allow use of the /ppassword command
