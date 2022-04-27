@@ -95,11 +95,11 @@ public class ActivationListener implements Listener {
                             double z = portal.getZ();
                             String name = portal.getName();
 
-                            PowerPortals.getPlugin().getLogger().info("Created a new portal owned by " +
+                            PowerPortals.getPlugin().getLogger().info("Registered a new portal owned by " +
                                     player.getName() + " named \"" + name + "\" at " + portal.getLocation());
 
                             player.sendMessage(ChatColor.GREEN + "[ P² ]" + ChatColor.GRAY + " Portal \"" + name +
-                                    "\" created at (" + x + ", " + y + ", " + z + ")");
+                                    "\" registered at (" + x + ", " + y + ", " + z + ")");
 
                             event.setCancelled(true);
 
