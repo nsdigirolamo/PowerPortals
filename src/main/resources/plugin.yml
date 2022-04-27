@@ -9,7 +9,7 @@ commands:
   link:
     description: Link two PowerPortals.
     permissions: powerportals.commands.link
-    usage: /link <portalName>
+    usage: /link <portalName> [<password>]
 
   portals:
     description: List owned PowerPortals.
@@ -20,6 +20,11 @@ commands:
     description: Warp to a PowerPortal.
     permissions: powerportals.commands.pwarp
     usage: /pwarp <portalName>
+
+  ppassword:
+    description: Set or delete a PowerPortal's password.
+    permissions: powerportals.commands.ppassword
+    usage: /ppassword <portalName> [set|delete] [<password>]
 
 permissions:
 
@@ -42,3 +47,7 @@ permissions:
   powerportals.commands.pwarp:
     description: Allow use of the /pwarp command.
     default: op
+
+  powerportals.commands.ppassword:
+    description: Allow use of the /ppassword command.
+    default: true
