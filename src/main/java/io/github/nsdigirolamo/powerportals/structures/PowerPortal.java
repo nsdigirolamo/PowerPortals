@@ -196,8 +196,12 @@ public class PowerPortal {
      * Sets the password of the PowerPortal.
      * @param password the new password
      */
-    public void setPassword (@Nullable String password) {
+    public void setPassword (String password) {
         this.password = password;
+    }
+
+    public void deletePassword () {
+        this.password = null;
     }
 
     /**
