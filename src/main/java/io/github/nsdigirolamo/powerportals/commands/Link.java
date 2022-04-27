@@ -4,7 +4,6 @@ import io.github.nsdigirolamo.powerportals.PowerPortals;
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
 import io.github.nsdigirolamo.powerportals.utilities.StorageUtility;
 import io.github.nsdigirolamo.powerportals.utilities.interfaces.Messages;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
