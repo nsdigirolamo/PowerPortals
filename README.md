@@ -2,11 +2,7 @@
 
 A Spigot plugin for Minecraft that adds interconnected portals. This plugin is heavily inspired by the now outdated <a href="https://github.com/Wormhole-X-Treme/Wormhole-X-Treme">Wormhole-X-Treme</a> Bukkit plugin for Minecraft.
 
-Players can build powerportals in-game and teleport between portals. Each powerportal has its own unique name, determined by the player that built it. Players are limited to owning a maximum of 20 powerportals at any given time, but this maxmimum can be increased via the plugin's config file.
-
-<img src="https://i.imgur.com/8XaQ3xG.png" alt="an example of a powerportal" width=40%/>
-
-Above is an example of a powerportal. The player builds this structure and the name of the portal will be automatically set as the first line of the sign. The powerportal will be registered once the player uses the lever. After the powerportal is registered, a player can use the lever again and link their portal to any other portal using `/link <portalName> [<password>]`. After two portals are linked the player can teleport between them.
+Players can build powerportals in-game and teleport between portals. Each powerportal has its own unique name, determined by the player that built it. See the <a href="https://github.com/nsdigirolamo/PowerPortals/wiki/PowerPortals-Home">wiki page on github</a> for more information.
 
 ## Goals
 * Allow for custom powerportal designs.
