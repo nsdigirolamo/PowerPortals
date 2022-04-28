@@ -1,6 +1,7 @@
 package io.github.nsdigirolamo.powerportals.utilities;
 
 import io.github.nsdigirolamo.powerportals.structures.PowerPortal;
+import io.github.nsdigirolamo.powerportals.utilities.interfaces.Messages;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -256,11 +257,11 @@ public class LargePortalCreationUtility {
 
                 if (!name.matches("[\\w]+")) {
 
-                    throw new IllegalArgumentException("[ P² ] A PowerPortal's name can only be letters and numbers and underscores.");
+                    throw new IllegalArgumentException(Messages.RED_PREFIX + "A PowerPortal's name can only be letters and numbers and underscores.");
 
                 } else if (StorageUtility.findPortal(name) != null) {
 
-                    throw new IllegalArgumentException("[ P² ] That PowerPortal's name already exists.");
+                    throw new IllegalArgumentException(Messages.RED_PREFIX + "That PowerPortal's name already exists.");
 
                 } else {
 

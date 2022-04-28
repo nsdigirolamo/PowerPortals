@@ -57,7 +57,7 @@ public class ActivationListener implements Listener {
                     try {
                         smallPortal = SmallPortalCreationUtility.attemptCreation(player, lever);
                     } catch (IllegalArgumentException e) {
-                        player.sendMessage(ChatColor.RED + e.getMessage());
+                        player.sendMessage(e.getMessage());
                     }
 
                     PowerPortal largePortal = null;
@@ -65,7 +65,7 @@ public class ActivationListener implements Listener {
                     try {
                         largePortal = LargePortalCreationUtility.attemptCreation(player, lever);
                     } catch (IllegalArgumentException e) {
-                        player.sendMessage(ChatColor.RED + e.getMessage());
+                        player.sendMessage(e.getMessage());
                     }
 
                     PowerPortal portal = null;
