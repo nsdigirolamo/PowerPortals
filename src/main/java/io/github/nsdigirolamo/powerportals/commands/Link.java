@@ -44,11 +44,14 @@ public class Link implements CommandExecutor {
 
                         if (exit != null) {
 
-                            if (args.length == 1 && exit.getPassword() != null) {
+                            if (args.length == 1 && exit.getPassword() != null
+                                    && !player.hasPermission("powerportals.portals.bypassPassword")) {
 
                                 player.sendMessage(Messages.RED_PREFIX + "Command failed. That portal is password protected!");
 
-                            } else if (args.length == 2 && exit.getPassword() != null && !exit.getPassword().equals(args[1])) {
+                            } else if (args.length == 2 && exit.getPassword() != null
+                                    && !exit.getPassword().equals(args[1])
+                                    && !player.hasPermission("powerportals.portals.bypassPassword")) {
 
                                 player.sendMessage(Messages.RED_PREFIX + "Command failed. Incorrect password.");
 
