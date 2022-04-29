@@ -43,29 +43,6 @@ public class StorageUtility {
     }
 
     /**
-     * Provides an array of all PowerPortals. Should not be necessary for most use cases, instead use findPortals() or
-     * findPortal() if searching for a particular portal.
-     * @see StorageUtility#findPortals(Block)
-     * @see StorageUtility#findPortals(Player)
-     * @see StorageUtility#findPortals(OfflinePlayer)
-     * @see StorageUtility#findPortal(UUID)
-     * @see StorageUtility#findPortal(String)
-     * @return an array of all PowerPortals
-     */
-    public static PowerPortal[] getPortals () {
-
-        PowerPortal[] portals = new PowerPortal[powerPortals.size()];
-        int index = 0;
-
-        for (PowerPortal portal : powerPortals) {
-            portals[index] = portal;
-            index++;
-        }
-
-        return portals;
-    }
-
-    /**
      * Provides an array of PowerPortals with the given block.
      * @param block the block in a PowerPortal.
      * @return an array of PowerPortals with the given block.
