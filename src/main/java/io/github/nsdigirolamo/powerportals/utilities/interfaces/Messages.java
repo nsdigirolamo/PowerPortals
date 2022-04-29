@@ -18,4 +18,8 @@ public interface Messages {
 
     String PORTAL_DNE = RED_PREFIX + "Command failed. That portal does not exist.";
 
+    String PORTAL_PASSPROT = RED_PREFIX + "Command failed. That portal is password protected!";
+
+    String PORTAL_WRONGPASS = RED_PREFIX + "Command failed. Incorrect password.";
+
 }
