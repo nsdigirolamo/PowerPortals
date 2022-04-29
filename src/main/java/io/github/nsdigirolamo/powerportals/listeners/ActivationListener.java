@@ -85,7 +85,7 @@ public class ActivationListener implements Listener {
                         int maxPortalCount = PowerPortals.getPlugin().getConfig().getInt("maxPortalCount");
 
                         if (StorageUtility.findPortals(player).length < maxPortalCount ||
-                                player.hasPermission("powerportals.portals.byPassMax")) {
+                                player.hasPermission("powerportals.portals.bypassMax")) {
 
                             StorageUtility.storePortal(portal);
                             player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
