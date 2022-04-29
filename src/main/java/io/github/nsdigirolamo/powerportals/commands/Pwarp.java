@@ -18,9 +18,6 @@ public class Pwarp implements CommandExecutor {
 
             Player player = (Player) sender;
 
-            // todo: have pwarp obey passwords
-            // todo: add permission for bypassing passwords
-
             if (player.hasPermission("powerportals.commands.pwarp")) {
                 if (args.length == 1 || args.length == 2) {
 
