@@ -18,16 +18,32 @@ public class Pwarp implements CommandExecutor {
 
             Player player = (Player) sender;
 
+            // todo: have pwarp obey passwords
+            // todo: add permission for bypassing passwords
+
             if (player.hasPermission("powerportals.commands.pwarp")) {
-                if (args.length == 1) {
+                if (args.length == 1 || args.length == 2) {
 
-                    PowerPortal destination = StorageUtility.findPortal(args[0]);
+                    PowerPortal exit = StorageUtility.findPortal(args[0]);
 
-                    if (destination != null) {
+                    if (exit != null) {
+                        if (args.length == 1 && exit.getPassword() != null
+                                && !player.hasPermission("powerportals.portals.bypassPassword")) {
 
-                        player.teleport(destination.getLocation());
-                        player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+                            player.sendMessage(Messages.PORTAL_PASSPROT);
 
+                        } else if (args.length == 2 && exit.getPassword() != null
+                                && !exit.getPassword().equals(args[1])
+                                && !player.hasPermission("powerportals.portals.bypassPassword")) {
+
+                            player.sendMessage(Messages.PORTAL_WRONGPASS);
+
+                        } else {
+
+                            player.teleport(exit.getLocation());
+                            player.playSound(player.getLocation(), Sound.ENTITY_ENDERMAN_TELEPORT, 1, 1);
+
+                        }
                     } else {
                         player.sendMessage(Messages.PORTAL_DNE);
                     }
