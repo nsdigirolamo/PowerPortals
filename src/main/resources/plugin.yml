@@ -28,8 +28,12 @@ commands:
 
 permissions:
 
-  powerportals.portals.byPassMax:
+  powerportals.portals.bypassMax:
     description: Allows a player to own more than the maximum number of portals.
+    default: op
+
+  powerportals.portals.bypassPassword:
+    description: Allows a player to travel to a portal without knowing its password.
     default: op
 
   powerportals.commands.link:
