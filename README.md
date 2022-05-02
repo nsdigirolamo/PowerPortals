@@ -1,6 +1,6 @@
 # PowerPortals
 
-A Spigot plugin for Minecraft that adds interconnected portals. This plugin is heavily inspired by the now outdated <a href="https://github.com/Wormhole-X-Treme/Wormhole-X-Treme">Wormhole-X-Treme</a> Bukkit plugin for Minecraft.
+A lightweight Spigot plugin for Minecraft that adds interconnected portals. This plugin is heavily inspired by the now outdated <a href="https://github.com/Wormhole-X-Treme/Wormhole-X-Treme">Wormhole-X-Treme</a> Bukkit plugin for Minecraft.
 
 Players can build powerportals in-game and teleport between portals. Each powerportal has its own unique name, determined by the player that built it. See the <a href="https://github.com/nsdigirolamo/PowerPortals/wiki/PowerPortals-Home">wiki page on github</a> for more information.
 
