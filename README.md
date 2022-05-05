@@ -14,7 +14,8 @@ Players can build powerportals in-game and teleport between portals. Each powerp
 * `/ppassword <portalName> [set|delete] [<password>]` ... Set or delete a PowerPortal's password. 
 
 ## Permissions
-* `powerportals.portals.byPassMax` ... Allows a player to own more than the maximum number of portals.
+* `powerportals.portals.bypassMax` ... Allows a player to own more than the maximum number of portals.
+* `powerportals.portals.bypassPassword` ... Allows a player to travel to a portal without knowing its password.
 * `powerportals.commands.link` ... Allow use of the /link command.
 * `powerportals.commands.portals` ... Allow use of the /portals command.
 * `powerportals.commands.portals.all` ... Allow use of the /portals all command.
