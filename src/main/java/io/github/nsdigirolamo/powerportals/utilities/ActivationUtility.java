@@ -10,6 +10,9 @@ import org.bukkit.metadata.FixedMetadataValue;
 
 import javax.annotation.Nullable;
 
+/**
+ * A utility that helps with controlling the behaviors and mechanics of activated and deactivated portals
+ */
 public class ActivationUtility {
 
     /**

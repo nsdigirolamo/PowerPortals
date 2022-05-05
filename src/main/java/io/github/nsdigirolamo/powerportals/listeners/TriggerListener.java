@@ -10,6 +10,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 
+/**
+ * Listens for any players entering the trigger blocks of a PowerPortal
+ */
 public class TriggerListener implements Listener {
 
     /**

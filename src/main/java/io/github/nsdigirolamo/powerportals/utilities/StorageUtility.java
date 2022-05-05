@@ -8,7 +8,6 @@ import io.github.nsdigirolamo.powerportals.utilities.adapters.BlockAdapter;
 import io.github.nsdigirolamo.powerportals.utilities.adapters.BlockFaceAdapter;
 import io.github.nsdigirolamo.powerportals.utilities.adapters.LocationAdapter;
 import io.github.nsdigirolamo.powerportals.utilities.adapters.OfflinePlayerAdapter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.block.Block;
@@ -20,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.UUID;
 
+/**
+ * A utility for handling the persistent storage of PowerPortals
+ */
 public class StorageUtility {
 
     private static ArrayList<PowerPortal> powerPortals = new ArrayList<>();
@@ -95,7 +97,7 @@ public class StorageUtility {
         ArrayList<PowerPortal> portals = new ArrayList<PowerPortal>();
 
         for (PowerPortal portal : powerPortals) {
-            if (portal.getOwnerID().equals(player)) {
+            if (portal.getOwnerID().equals(player.getUniqueId())) {
                 portals.add(portal);
             }
         }

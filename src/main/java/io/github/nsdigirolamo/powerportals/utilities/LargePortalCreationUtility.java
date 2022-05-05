@@ -14,6 +14,9 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+/**
+ * A utility for creating large PowerPortals
+ */
 public class LargePortalCreationUtility {
 
     private static final Material[][][] LARGE_PORTAL =

@@ -2,6 +2,9 @@ package io.github.nsdigirolamo.powerportals.utilities.interfaces;
 
 import org.bukkit.ChatColor;
 
+/**
+ * Provides common messages that are sent to the player by the PowerPortals plugin
+ */
 public interface Messages {
 
     String RED_PREFIX = ChatColor.RED + "[ P² ] " + ChatColor.GRAY;

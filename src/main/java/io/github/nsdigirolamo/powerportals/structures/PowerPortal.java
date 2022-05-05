@@ -9,6 +9,9 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nullable;
 import java.util.UUID;
 
+/**
+ * Represents a PowerPortal in the game world
+ */
 public class PowerPortal {
 
     private final UUID id;
@@ -200,6 +203,9 @@ public class PowerPortal {
         this.password = password;
     }
 
+    /**
+     * Deletes the password of the PowerPortal.
+     */
     public void deletePassword () {
         this.password = null;
     }

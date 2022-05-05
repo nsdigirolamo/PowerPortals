@@ -12,6 +12,9 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
+/**
+ * A utility for creating small PowerPortals
+ */
 public class SmallPortalCreationUtility {
 
     private static final Material[][][] SMALL_PORTAL =

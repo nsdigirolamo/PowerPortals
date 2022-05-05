@@ -11,11 +11,20 @@ import org.bukkit.World;
 import java.io.IOException;
 import java.util.UUID;
 
+/**
+ * Adapts Locations for conversion to and from json files by Gson
+ */
 public class LocationAdapter extends TypeAdapter<Location> {
 
+    /**
+     * Writes a Location into a format that can be stored in a json file
+     * @param writer the json writer
+     * @param location the Java object to write. May be null.
+     * @throws IOException if there is a problem with the writer
+     */
     @Override
     public void write(JsonWriter writer, Location location) throws IOException {
-        if (location == null) {
+        if (location == null || location.getWorld() == null) {
             writer.nullValue();
         } else {
             String world = location.getWorld().getUID().toString();
@@ -28,6 +37,12 @@ public class LocationAdapter extends TypeAdapter<Location> {
         }
     }
 
+    /**
+     * Reads a Location from json into a Location in the game world
+     * @param reader the json reader
+     * @return the Location stored in json format
+     * @throws IOException if there is a problem with the reader
+     */
     @Override
     public Location read(JsonReader reader) throws IOException {
         if (reader.peek() == JsonToken.NULL) {

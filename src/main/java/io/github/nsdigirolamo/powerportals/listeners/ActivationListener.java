@@ -17,6 +17,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 
+/**
+ * Listens for the activation or deactivation of a PowerPortal
+ */
 public class ActivationListener implements Listener {
 
     /**

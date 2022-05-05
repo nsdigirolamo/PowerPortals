@@ -8,6 +8,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockFromToEvent;
 
+/**
+ * Listens for water interactions
+ */
 public class WaterInteractionListener implements Listener {
 
     /**

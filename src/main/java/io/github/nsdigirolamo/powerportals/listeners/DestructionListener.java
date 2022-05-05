@@ -19,6 +19,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Listens for the destruction of a PowerPortal
+ */
 public class DestructionListener implements Listener {
 
     /**
