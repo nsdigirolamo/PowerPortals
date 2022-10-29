@@ -25,59 +25,76 @@ public class Ppassword implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (sender instanceof Player) {
+        if (!(sender instanceof Player)) {
+
+            return false;
+
+        } else {
 
             Player player = (Player) sender;
 
-            if (player.hasPermission("powerportals.commands.ppassword")) {
+            if (!player.hasPermission("powerportals.commands.ppassword")) {
 
-                if (args.length < 2) {
-                    player.sendMessage(Messages.TOO_FEW_ARGS);
-                } else if (args.length > 3) {
-                    player.sendMessage(Messages.TOO_MANY_ARGS);
+                player.sendMessage(Messages.NO_PERMISSION);
+                return false;
+
+            } else if (args.length < 2) {
+
+                player.sendMessage(Messages.TOO_FEW_ARGS);
+                return false;
+
+            } else if (3 < args.length) {
+
+                player.sendMessage(Messages.TOO_MANY_ARGS);
+                return false;
+
+            } else {
+
+                String portalName = args[0];
+                PowerPortal portal = StorageUtility.findPortal(portalName);
+
+                if (portal == null) {
+
+                    player.sendMessage(Messages.PORTAL_DNE);
+                    return false;
+
+                } else if (!portal.getOwnerID().equals(player.getUniqueId())) {
+
+                    player.sendMessage(Messages.RED_PREFIX + "Command failed. That portal does not belong to you.");
+                    return false;
+
                 } else {
 
-                    String portalName = args[0];
-                    PowerPortal portal = StorageUtility.findPortal(portalName);
+                    String action = args[1];
 
-                    if (portal != null) {
+                    if (action.equals("delete")) {
 
-                        if (!portal.getOwnerID().equals(player.getUniqueId())) {
-                            player.sendMessage(Messages.RED_PREFIX + "Command failed. That portal does not belong to you.");
+                        portal.deletePassword();
+                        player.sendMessage(Messages.GREEN_PREFIX + "Password deleted.");
+
+                    } else if (action.equals("set")) {
+
+                        String password = args[2];
+
+                        if (password.matches("^[\\w]{1,20}$")) {
+
+                            portal.setPassword(args[2]);
+                            player.sendMessage(Messages.GREEN_PREFIX + "Password set to \"" + password + "\"");
+
                         } else {
 
-                            String action = args[1];
+                            player.sendMessage(Messages.RED_PREFIX + "Command failed. Password must be" +
+                                    "alphanumeric and 1 to 20 characters long.");
 
-                            if (action.equals("delete")) {
-
-                                portal.deletePassword();
-                                player.sendMessage(Messages.GREEN_PREFIX + "Password deleted.");
-
-                            } else if (action.equals("set")) {
-
-                                String password = args[2];
-
-                                if (password.matches("^[\\w]{1,20}$")) {
-
-                                    portal.setPassword(args[2]);
-                                    player.sendMessage(Messages.GREEN_PREFIX + "Password set to \"" + password + "\"");
-
-                                } else {
-
-                                    player.sendMessage(Messages.RED_PREFIX + "Command failed. Password must be " +
-                                            "between 1 - 20 characters and can only be letters and numbers");
-
-                                }
-                            } else {
-                                player.sendMessage(Messages.INVALID_ARGS);
-                            }
                         }
+
                     } else {
-                        player.sendMessage(Messages.PORTAL_DNE);
+
+                        player.sendMessage(Messages.INVALID_ARGS);
+                        return false;
+
                     }
                 }
-            } else {
-                player.sendMessage(Messages.NO_PERMISSION);
             }
         }
         return true;

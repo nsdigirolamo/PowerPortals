@@ -33,72 +33,87 @@ public class Link implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (sender instanceof Player) {
+        if (!(sender instanceof Player)) {
+
+            return false;
+
+        } else {
 
             Player player = (Player) sender;
 
-            if (player.hasPermission("powerportals.commands.Link")) {
+            if (!player.hasPermission("powerportals.commands.Link")) {
+
+                player.sendMessage(Messages.NO_PERMISSION);
+                return false;
+
+            } else {
 
                 PowerPortal entrance = null;
                 List<MetadataValue> metadata = player.getMetadata("activatedPortal");
-
-                for (MetadataValue value : metadata) {
-                    if (PowerPortals.getPlugin().equals(value.getOwningPlugin())) {
-                        entrance = StorageUtility.findPortal((UUID) value.value());
+                for (MetadataValue data : metadata) {
+                    if (PowerPortals.getPlugin().equals(data.getOwningPlugin())) {
+                        entrance = StorageUtility.findPortal((UUID)data.value());
                     }
                 }
 
-                if (entrance != null) {
-                    // TODO: having no arguments prints an incorrect error message
-                    if (args.length == 1 || args.length == 2) {
+                if (entrance == null) {
 
-                        PowerPortal exit = StorageUtility.findPortal(args[0]);
-
-                        if (exit != null) {
-
-                            if (args.length == 1 && exit.getPassword() != null
-                                    && !player.hasPermission("powerportals.portals.bypassPassword")) {
-
-                                player.sendMessage(Messages.PORTAL_PASSPROT);
-
-                            } else if (args.length == 2 && exit.getPassword() != null
-                                    && !exit.getPassword().equals(args[1])
-                                    && !player.hasPermission("powerportals.portals.bypassPassword")) {
-
-                                player.sendMessage(Messages.PORTAL_WRONGPASS);
-
-                            } else {
-
-                                entrance.setExit(exit);
-
-                                player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
-
-                                for (Block trigger : entrance.getTriggers()) {
-                                    trigger.setType(Material.WATER, false);
-                                }
-
-                                for (Block trigger : exit.getTriggers()) {
-                                    trigger.setType(Material.WATER, false);
-                                }
-
-                                player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
-
-                            }
-                        } else {
-                            player.sendMessage(Messages.PORTAL_DNE);
-                        }
-                    } else if (args.length < 1) {
-                        player.sendMessage(Messages.TOO_FEW_ARGS);
-                    } else {
-                        player.sendMessage(Messages.TOO_MANY_ARGS);
-                    }
-                } else {
                     player.sendMessage(Messages.RED_PREFIX + "Command failed. You need to activate an entrance.");
+                    return false;
+
+                } else if (args.length < 1) {
+
+                    player.sendMessage(Messages.TOO_FEW_ARGS);
+                    return false;
+
+                } else if (2 < args.length) {
+
+                    player.sendMessage(Messages.TOO_MANY_ARGS);
+                    return false;
+
+                } else {
+
+                    PowerPortal exit = StorageUtility.findPortal(args[0]);
+
+                    if (exit == null) {
+
+                        player.sendMessage(Messages.PORTAL_DNE);
+                        return false;
+
+                    } else if (args.length == 1 &&
+                            exit.getPassword() != null &&
+                            !player.hasPermission("powerportals.portals.bypassPassword")) {
+
+                        player.sendMessage(Messages.PORTAL_PASSPROT);
+                        return false;
+
+                    } else if (args.length == 2 &&
+                            exit.getPassword() != null &&
+                            !exit.getPassword().equals(args[1]) &&
+                            !player.hasPermission("powerportals.portals.bypassPassword")) {
+
+                        player.sendMessage(Messages.PORTAL_WRONGPASS);
+                        return false;
+
+                    } else {
+
+                        entrance.setExit(exit);
+
+                        player.removeMetadata("activatedPortal", PowerPortals.getPlugin());
+
+                        for (Block trigger : entrance.getTriggers()) {
+                            trigger.setType(Material.WATER, false);
+                        }
+
+                        for (Block trigger : exit.getTriggers()) {
+                            trigger.setType(Material.WATER, false);
+                        }
+
+                        player.playSound(player.getLocation(), Sound.BLOCK_END_PORTAL_FRAME_FILL, 1, 1);
+                    }
                 }
-            } else {
-                player.sendMessage(Messages.NO_PERMISSION);
             }
         }
-            return true;
+        return true;
     }
 }
