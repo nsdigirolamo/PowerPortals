@@ -245,7 +245,7 @@ public class LargePortalCreationUtility {
                             boolean isPortalSign = possiblePortal[i][j][k].getBlockData() instanceof WallSign;
                             boolean isBluePrintAir = LARGE_PORTAL[i][j][k].equals(Material.AIR);
 
-                            if (!(isBluePrintSign && isPortalSign) || !isBluePrintAir) {
+                            if (!(isBluePrintSign && isPortalSign) && !isBluePrintAir) {
 
                                 isPortal = false;
                                 break topLoop;
