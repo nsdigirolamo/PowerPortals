@@ -27,51 +27,69 @@ public class Portals implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
-        if (sender instanceof Player) {
+        if (!(sender instanceof Player)) {
+
+            return false;
+
+        } else {
 
             Player player = (Player) sender;
 
-            if (player.hasPermission("powerportals.commands.portals")) {
-                // if there are no arguments print the first page of the player's portals
-                if (args.length == 0) {
+            if (!player.hasPermission("powerportals.commands.portals")) {
 
-                    listPortals(player, 1);
-
-                // if there is one argument check if its "all" or a page number and pass to the appropriate method
-                } else if (args.length == 1) {
-                    if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
-
-                        listAllPortals(player, 1);
-
-                    } else {
-
-                        try {
-                            int page = Integer.parseInt(args[0]);
-                            listPortals(player, page);
-                        } catch (NumberFormatException e) {
-                            player.sendMessage(Messages.INVALID_ARGS);
-                        }
-
-                    }
-                // if there are two arguments check if the first is "all" and the second is a page number
-                } else if (args.length == 2 && player.hasPermission("powerportals.commands.portals.all")) {
-                    if (args[0].equals("all")) {
-
-                        try {
-                            int page = Integer.parseInt(args[1]);
-                            listAllPortals(player, page);
-                        } catch (NumberFormatException e) {
-                            player.sendMessage(Messages.INVALID_ARGS);
-                        }
-
-                    } else {
-                        player.sendMessage(Messages.INVALID_ARGS);
-                    }
-                } else {
-                    player.sendMessage(Messages.TOO_MANY_ARGS);
-                }
-            } else {
                 player.sendMessage(Messages.NO_PERMISSION);
+                return false;
+
+            } else if (args.length == 0) {
+
+                listPortals(player, 1);
+
+            } else if (args.length == 1) {
+
+                if (args[0].equals("all") && !player.hasPermission("powerportals.commands.portals.all")) {
+
+                    player.sendMessage(Messages.NO_PERMISSION);
+                    return false;
+
+                } else if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
+
+                    listAllPortals(player, 1);
+
+                } else {
+
+                    try {
+                        int page = Integer.parseInt(args[0]);
+                        listPortals(player, page);
+                    } catch (NumberFormatException e) {
+                        player.sendMessage(Messages.INVALID_ARGS);
+                        return false;
+                    }
+
+                }
+
+            } else if (args.length == 2) {
+
+                if (args[0].equals("all") && !player.hasPermission("powerportals.commands.portals.all")) {
+
+                    player.sendMessage(Messages.NO_PERMISSION);
+                    return false;
+
+                } else if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
+
+                    try {
+                        int page = Integer.parseInt(args[1]);
+                        listAllPortals(player, page);
+                    } catch (NumberFormatException e) {
+                        player.sendMessage(Messages.INVALID_ARGS);
+                        return false;
+                    }
+
+                } else {
+
+                    player.sendMessage(Messages.INVALID_ARGS);
+                    return false;
+
+                }
             }
         }
         return true;
@@ -86,7 +104,6 @@ public class Portals implements CommandExecutor {
 
         PowerPortal[] portals = StorageUtility.findPortals(owner);
         int portalsPerPage = 8;
-        // integer division chops off the decimal, add one to round up to the proper max page number
         int maxPages = (portals.length / portalsPerPage) + 1;
 
         if (pageNum > maxPages) {
@@ -122,7 +139,6 @@ public class Portals implements CommandExecutor {
     private static void listAllPortals (Player player, int pageNum) {
         PowerPortal[] portals = StorageUtility.getPortals();
         int portalsPerPage = 8;
-        // integer division chops off the decimal, add one to round up to the proper max page number
         int maxPages = (portals.length / portalsPerPage) + 1;
 
         if (pageNum > maxPages) {
