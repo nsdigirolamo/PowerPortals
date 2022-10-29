@@ -151,9 +151,12 @@ public class SmallPortalCreationUtility {
                 for (int j = 0; j < possiblePortal[i].length; j++) {
                     for (int k = 0; k < possiblePortal[i][j].length; k++) {
                         if (!SMALL_PORTAL[i][j][k].equals(possiblePortal[i][j][k].getType())) {
-                            // this statement checks for any type of wall sign instead of just oak
-                            if (!(SMALL_PORTAL[i][j][k].equals(Material.OAK_WALL_SIGN) &&
-                                    possiblePortal[i][j][k].getBlockData() instanceof WallSign)) {
+
+                            boolean isBluePrintSign = SMALL_PORTAL[i][j][k].equals(Material.OAK_WALL_SIGN);
+                            boolean isPortalSign = possiblePortal[i][j][k].getBlockData() instanceof WallSign;
+                            boolean isBluePrintAir = SMALL_PORTAL[i][j][k].equals(Material.AIR);
+
+                            if (!(isBluePrintSign && isPortalSign) && !isBluePrintAir) {
 
                                 isPortal = false;
                                 break topLoop;

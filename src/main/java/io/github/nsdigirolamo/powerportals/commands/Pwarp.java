@@ -37,17 +37,14 @@ public class Pwarp implements CommandExecutor {
             if (!player.hasPermission("powerportals.commands.pwarp")) {
 
                 player.sendMessage(Messages.NO_PERMISSION);
-                return false;
 
             } else if (args.length < 1){
 
                 player.sendMessage(Messages.TOO_FEW_ARGS);
-                return false;
 
             } else if (2 < args.length) {
 
                 player.sendMessage(Messages.TOO_MANY_ARGS);
-                return false;
 
             } else {
 
@@ -56,7 +53,6 @@ public class Pwarp implements CommandExecutor {
                 if (exit == null) {
 
                     player.sendMessage(Messages.PORTAL_DNE);
-                    return false;
 
                 } else {
 
@@ -65,7 +61,6 @@ public class Pwarp implements CommandExecutor {
                             !player.hasPermission("powerportals.portals.bypassPassword")) {
 
                         player.sendMessage(Messages.PORTAL_PASSPROT);
-                        return false;
 
                     } else if (args.length == 2 &&
                             exit.getPassword() != null &&
@@ -73,7 +68,6 @@ public class Pwarp implements CommandExecutor {
                             !player.hasPermission("powerportals.portals.bypassPassword")) {
 
                         player.sendMessage(Messages.PORTAL_WRONGPASS);
-                        return false;
 
                     } else {
 

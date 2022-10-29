@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.block.BlockPistonExtendEvent;
 import org.bukkit.event.block.BlockPistonRetractEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,20 +56,36 @@ public class DestructionListener implements Listener {
     }
 
     /**
-     * Calls destroyPortal() on any portals with exploded blocks.
+     * Calls destroyPortal() on any portals that have been exploded by blocks.
      * @param event the event passed when a block is exploded.
      */
-    // TODO: Fix this method. Doesn't work at all.
     @EventHandler
     public void onBlockExplode (BlockExplodeEvent event) {
-        List<Block> explodedBlocks = event.blockList();
-        ArrayList<PowerPortal> brokenPortals = new ArrayList<PowerPortal>();
 
-        for (Block explodedBlock : explodedBlocks) {
+        ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
+
+        for (Block explodedBlock : event.blockList()) {
             PowerPortal[] explodedPortals = StorageUtility.findPortals(explodedBlock);
-            for (PowerPortal portal : explodedPortals) {
-                brokenPortals.add(portal);
-            }
+            brokenPortals.addAll(Arrays.asList(explodedPortals));
+        }
+
+        for (PowerPortal portal : brokenPortals) {
+            destroyPortal(portal);
+        }
+    }
+
+    /**
+     * Calls destroyPortal() on any portals that have been exploded by entities.
+     * @param event the event passed when a block is exploded.
+     */
+    @EventHandler
+    public void onEntityExplode (EntityExplodeEvent event) {
+
+        ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
+
+        for (Block explodedBlock : event.blockList()) {
+            PowerPortal[] explodedPortals = StorageUtility.findPortals(explodedBlock);
+            brokenPortals.addAll(Arrays.asList(explodedPortals));
         }
 
         for (PowerPortal portal : brokenPortals) {
@@ -83,7 +100,7 @@ public class DestructionListener implements Listener {
     @EventHandler
     public void onPistonExtend (BlockPistonExtendEvent event) {
         List<Block> movedBlocks = event.getBlocks();
-        ArrayList<PowerPortal> brokenPortals = new ArrayList<PowerPortal>();
+        ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
 
         for (Block movedBlock : movedBlocks) {
             PowerPortal[] movedPortals = StorageUtility.findPortals(movedBlock);
@@ -102,7 +119,7 @@ public class DestructionListener implements Listener {
     @EventHandler
     public void onPistonRetract (BlockPistonRetractEvent event) {
         List<Block> movedBlocks = event.getBlocks();
-        ArrayList<PowerPortal> brokenPortals = new ArrayList<PowerPortal>();
+        ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
 
         for (Block movedBlock : movedBlocks) {
             PowerPortal[] movedPortals = StorageUtility.findPortals(movedBlock);

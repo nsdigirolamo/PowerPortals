@@ -36,17 +36,14 @@ public class Ppassword implements CommandExecutor {
             if (!player.hasPermission("powerportals.commands.ppassword")) {
 
                 player.sendMessage(Messages.NO_PERMISSION);
-                return false;
 
             } else if (args.length < 2) {
 
                 player.sendMessage(Messages.TOO_FEW_ARGS);
-                return false;
 
             } else if (3 < args.length) {
 
                 player.sendMessage(Messages.TOO_MANY_ARGS);
-                return false;
 
             } else {
 
@@ -56,12 +53,10 @@ public class Ppassword implements CommandExecutor {
                 if (portal == null) {
 
                     player.sendMessage(Messages.PORTAL_DNE);
-                    return false;
 
                 } else if (!portal.getOwnerID().equals(player.getUniqueId())) {
 
                     player.sendMessage(Messages.RED_PREFIX + "Command failed. That portal does not belong to you.");
-                    return false;
 
                 } else {
 
@@ -91,7 +86,6 @@ public class Ppassword implements CommandExecutor {
                     } else {
 
                         player.sendMessage(Messages.INVALID_ARGS);
-                        return false;
 
                     }
                 }

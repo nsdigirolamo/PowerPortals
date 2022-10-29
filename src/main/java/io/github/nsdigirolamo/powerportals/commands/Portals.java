@@ -38,7 +38,6 @@ public class Portals implements CommandExecutor {
             if (!player.hasPermission("powerportals.commands.portals")) {
 
                 player.sendMessage(Messages.NO_PERMISSION);
-                return false;
 
             } else if (args.length == 0) {
 
@@ -49,7 +48,6 @@ public class Portals implements CommandExecutor {
                 if (args[0].equals("all") && !player.hasPermission("powerportals.commands.portals.all")) {
 
                     player.sendMessage(Messages.NO_PERMISSION);
-                    return false;
 
                 } else if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
 
@@ -62,7 +60,6 @@ public class Portals implements CommandExecutor {
                         listPortals(player, page);
                     } catch (NumberFormatException e) {
                         player.sendMessage(Messages.INVALID_ARGS);
-                        return false;
                     }
 
                 }
@@ -72,7 +69,6 @@ public class Portals implements CommandExecutor {
                 if (args[0].equals("all") && !player.hasPermission("powerportals.commands.portals.all")) {
 
                     player.sendMessage(Messages.NO_PERMISSION);
-                    return false;
 
                 } else if (args[0].equals("all") && player.hasPermission("powerportals.commands.portals.all")) {
 
@@ -81,13 +77,11 @@ public class Portals implements CommandExecutor {
                         listAllPortals(player, page);
                     } catch (NumberFormatException e) {
                         player.sendMessage(Messages.INVALID_ARGS);
-                        return false;
                     }
 
                 } else {
 
                     player.sendMessage(Messages.INVALID_ARGS);
-                    return false;
 
                 }
             }
