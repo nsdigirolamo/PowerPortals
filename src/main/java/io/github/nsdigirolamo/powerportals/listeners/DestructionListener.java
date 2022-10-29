@@ -65,8 +65,14 @@ public class DestructionListener implements Listener {
         ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
 
         for (Block explodedBlock : event.blockList()) {
+
             PowerPortal[] explodedPortals = StorageUtility.findPortals(explodedBlock);
-            brokenPortals.addAll(Arrays.asList(explodedPortals));
+
+            for (PowerPortal explodedPortal : explodedPortals) {
+                if (!brokenPortals.contains(explodedPortal)) {
+                    brokenPortals.add(explodedPortal);
+                }
+            }
         }
 
         for (PowerPortal portal : brokenPortals) {
@@ -84,8 +90,14 @@ public class DestructionListener implements Listener {
         ArrayList<PowerPortal> brokenPortals = new ArrayList<>();
 
         for (Block explodedBlock : event.blockList()) {
+
             PowerPortal[] explodedPortals = StorageUtility.findPortals(explodedBlock);
-            brokenPortals.addAll(Arrays.asList(explodedPortals));
+
+            for (PowerPortal explodedPortal : explodedPortals) {
+                if (!brokenPortals.contains(explodedPortal)) {
+                    brokenPortals.add(explodedPortal);
+                }
+            }
         }
 
         for (PowerPortal portal : brokenPortals) {
